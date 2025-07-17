@@ -433,8 +433,8 @@ function formatDateForDisplay(dateString) {
   return localDate.toLocaleDateString();
 }
 /**
- * UPDATE ROUNDS TABLE
- * Rebuilds the HTML table showing all previous rounds
+ * UPDATE ROUNDS TABLE WITH SORTING
+ * Enhanced version that includes sort indicators in headers
  */
 function updateRoundsTable() {
   console.log('updateRoundsTable called with', rounds.length, 'rounds');
@@ -446,6 +446,9 @@ function updateRoundsTable() {
     console.error('Could not find table body element with ID "roundsBody"');
     return;
   }
+
+  // UPDATE HEADER SORT INDICATORS
+  updateSortIndicators();
 
   tbody.innerHTML = ''; // Clear existing rows
   console.log('Cleared existing table rows');
@@ -463,7 +466,6 @@ function updateRoundsTable() {
     const row = tbody.insertRow(); // Create new table row
 
     // FILL THE ROW with round data
-    // Use formatDateForDisplay to fix timezone issues
     row.innerHTML = `
             <td>${formatDateForDisplay(round.date)}</td>
             <td>${round.course || ''}</td>
@@ -493,6 +495,121 @@ function updateRoundsTable() {
   });
 
   console.log('Table update completed, added', rounds.length, 'rows');
+}
+
+// ========================================
+// TABLE SORTING FUNCTIONALITY
+// ========================================
+
+// Global variable to track current sort
+let currentSort = {
+  column: 'date',
+  direction: 'desc', // Start with newest dates first
+};
+
+/**
+ * SORT TABLE BY COLUMN
+ */
+function sortTable(column) {
+  // If clicking the same column, toggle direction
+  if (currentSort.column === column) {
+    currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+  } else {
+    // New column, default to ascending (except date which defaults to descending)
+    currentSort.column = column;
+    currentSort.direction = column === 'date' ? 'desc' : 'asc';
+  }
+
+  // Sort the rounds array
+  rounds.sort((a, b) => {
+    let valueA, valueB;
+
+    // Get values based on column
+    switch (column) {
+      case 'date':
+        valueA = new Date(a.date);
+        valueB = new Date(b.date);
+        break;
+      case 'course':
+        valueA = (a.course || '').toLowerCase();
+        valueB = (b.course || '').toLowerCase();
+        break;
+      case 'type':
+        valueA = (a.courseType || 'regulation').toLowerCase();
+        valueB = (b.courseType || 'regulation').toLowerCase();
+        break;
+      case 'holes':
+        valueA = a.holes || 0;
+        valueB = b.holes || 0;
+        break;
+      case 'score':
+        valueA = a.score || 0;
+        valueB = b.score || 0;
+        break;
+      case 'par':
+        valueA = a.par || 0;
+        valueB = b.par || 0;
+        break;
+      case 'adjScore':
+        valueA = a.adjScore || 0;
+        valueB = b.adjScore || 0;
+        break;
+      case 'differential':
+        valueA = a.differential || 0;
+        valueB = b.differential || 0;
+        break;
+      case 'includeInHandicap':
+        valueA = a.includeInHandicap ? 1 : 0;
+        valueB = b.includeInHandicap ? 1 : 0;
+        break;
+      default:
+        return 0;
+    }
+
+    // Compare values
+    if (valueA < valueB) {
+      return currentSort.direction === 'asc' ? -1 : 1;
+    }
+    if (valueA > valueB) {
+      return currentSort.direction === 'asc' ? 1 : -1;
+    }
+    return 0;
+  });
+
+  // Update the table display
+  updateRoundsTable();
+}
+
+/**
+ * UPDATE SORT INDICATORS IN TABLE HEADERS
+ */
+function updateSortIndicators() {
+  // Remove existing sort indicators
+  const headers = document.querySelectorAll('#roundsTable th');
+  headers.forEach((header) => {
+    header.innerHTML = header.innerHTML.replace(/\s*[↑↓]/, '');
+    header.classList.remove('sorted-asc', 'sorted-desc');
+  });
+
+  // Add indicator to current sorted column
+  const columnMap = {
+    date: 0,
+    course: 1,
+    type: 2,
+    holes: 3,
+    score: 4,
+    par: 5,
+    adjScore: 6,
+    differential: 7,
+    includeInHandicap: 8,
+  };
+
+  const headerIndex = columnMap[currentSort.column];
+  if (headerIndex !== undefined && headers[headerIndex]) {
+    const arrow = currentSort.direction === 'asc' ? ' ↑' : ' ↓';
+    headers[headerIndex].innerHTML += arrow;
+    headers[headerIndex].classList.add(`sorted-${currentSort.direction}`);
+  }
 }
 
 /**

@@ -28,20 +28,20 @@
 
 /* Main body styling - sets up the overall page layout */
 body {
-    font-family: Arial, sans-serif;  /* Clean, readable font */
-    max-width: 1200px;               /* Prevents content from getting too wide on large screens */
-    margin: 0 auto;                  /* Centers the content horizontally */
-    padding: 20px;                   /* Adds space around the edges */
-    background-color: #f5f5f5;       /* Light gray background */
+  font-family: Arial, sans-serif; /* Clean, readable font */
+  max-width: 1200px; /* Prevents content from getting too wide on large screens */
+  margin: 0 auto; /* Centers the content horizontally */
+  padding: 20px; /* Adds space around the edges */
+  background-color: #f5f5f5; /* Light gray background */
 }
 
 /* Main container that holds all content */
 .container {
-    background: white;                           /* White background for content area */
-    padding: 25px;                              /* Inner spacing */
-    border-radius: 10px;                        /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);    /* Subtle shadow for depth */
-    margin-bottom: 20px;                        /* Space below container */
+  background: white; /* White background for content area */
+  padding: 25px; /* Inner spacing */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-bottom: 20px; /* Space below container */
 }
 
 /* ========================================
@@ -50,17 +50,17 @@ body {
 
 /* Main page title */
 h1 {
-    color: #2c5530;          /* Dark green color */
-    text-align: center;      /* Centered text */
-    margin-bottom: 30px;     /* Space below title */
+  color: #2c5530; /* Dark green color */
+  text-align: center; /* Centered text */
+  margin-bottom: 30px; /* Space below title */
 }
 
 /* Section headings */
 h2 {
-    color: #2c5530;                    /* Dark green color */
-    border-bottom: 2px solid #4a7c59;  /* Green underline */
-    padding-bottom: 10px;              /* Space between text and underline */
-    margin-top: 30px;                  /* Space above heading */
+  color: #2c5530; /* Dark green color */
+  border-bottom: 2px solid #4a7c59; /* Green underline */
+  padding-bottom: 10px; /* Space between text and underline */
+  margin-top: 30px; /* Space above heading */
 }
 
 /* ========================================
@@ -69,54 +69,59 @@ h2 {
 
 /* Container for the input form - creates a responsive grid */
 .input-section {
-    display: grid;                                      /* Use CSS Grid layout */
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));  /* Responsive columns, min 200px wide */
-    gap: 15px;                                         /* Space between grid items */
-    margin-bottom: 20px;                               /* Space below the form */
+  display: grid; /* Use CSS Grid layout */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* Responsive columns, min 200px wide */
+  gap: 15px; /* Space between grid items */
+  margin-bottom: 20px; /* Space below the form */
 }
 
 /* Individual input groups (label + input pairs) */
 .input-group {
-    display: flex;           /* Stack label above input */
-    flex-direction: column;  /* Vertical stacking */
+  display: flex; /* Stack label above input */
+  flex-direction: column; /* Vertical stacking */
 }
 
 /* Form labels */
 label {
-    font-weight: bold;       /* Make labels stand out */
-    margin-bottom: 5px;      /* Space between label and input */
-    color: #2c5530;          /* Dark green color */
+  font-weight: bold; /* Make labels stand out */
+  margin-bottom: 5px; /* Space between label and input */
+  color: #2c5530; /* Dark green color */
 }
 
 /* All input fields and select dropdowns */
-input, select {
-    padding: 8px;                /* Inner spacing for comfort */
-    border: 2px solid #ddd;      /* Light gray border */
-    border-radius: 5px;          /* Rounded corners */
-    font-size: 14px;             /* Readable text size */
+input,
+select {
+  padding: 8px; /* Inner spacing for comfort */
+  border: 2px solid #ddd; /* Light gray border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 14px; /* Readable text size */
 }
 
 /* Input focus state - when user clicks on an input */
-input:focus, select:focus {
-    outline: none;               /* Remove default browser outline */
-    border-color: #4a7c59;       /* Change border to green when focused */
+input:focus,
+select:focus {
+  outline: none; /* Remove default browser outline */
+  border-color: #4a7c59; /* Change border to green when focused */
 }
 
 /* All buttons */
 button {
-    background-color: #4a7c59;   /* Green background */
-    color: white;                /* White text */
-    padding: 10px 20px;          /* Comfortable button size */
-    border: none;                /* Remove default border */
-    border-radius: 5px;          /* Rounded corners */
-    cursor: pointer;             /* Show hand cursor on hover */
-    font-size: 16px;             /* Readable text size */
-    margin-top: 10px;            /* Space above button */
+  background-color: #4a7c59; /* Green background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Comfortable button size */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Show hand cursor on hover */
+  font-size: 16px; /* Readable text size */
+  margin-top: 10px; /* Space above button */
 }
 
 /* Button hover effect - changes color when mouse hovers over */
 button:hover {
-    background-color: #2c5530;   /* Darker green on hover */
+  background-color: #2c5530; /* Darker green on hover */
 }
 
 /* ========================================
@@ -125,50 +130,57 @@ button:hover {
 
 /* Special styling for the handicap display box */
 .handicap-display {
-    background: linear-gradient(135deg, #4a7c59, #2c5530);  /* Gradient background */
-    color: white;                /* White text */
-    padding: 20px;               /* Inner spacing */
-    border-radius: 10px;         /* Rounded corners */
-    text-align: center;          /* Center all text */
-    margin: 20px 0;              /* Space above and below */
+  background: linear-gradient(
+    135deg,
+    #4a7c59,
+    #2c5530
+  ); /* Gradient background */
+  color: white; /* White text */
+  padding: 20px; /* Inner spacing */
+  border-radius: 10px; /* Rounded corners */
+  text-align: center; /* Center all text */
+  margin: 20px 0; /* Space above and below */
 }
 
 /* The large handicap number */
 .handicap-number {
-    font-size: 3em;      /* Very large text */
-    font-weight: bold;   /* Bold text */
-    margin: 10px 0;      /* Space above and below */
+  font-size: 3em; /* Very large text */
+  font-weight: bold; /* Bold text */
+  margin: 10px 0; /* Space above and below */
 }
 
 /* Grid for statistics cards */
 .stats-grid {
-    display: grid;                                      /* Use CSS Grid */
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));  /* Responsive columns, min 150px */
-    gap: 15px;                                         /* Space between cards */
-    margin-top: 20px;                                  /* Space above grid */
+  display: grid; /* Use CSS Grid */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(150px, 1fr)
+  ); /* Responsive columns, min 150px */
+  gap: 15px; /* Space between cards */
+  margin-top: 20px; /* Space above grid */
 }
 
 /* Individual statistic cards */
 .stat-card {
-    background: #f8f9fa;         /* Light gray background */
-    padding: 15px;               /* Inner spacing */
-    border-radius: 8px;          /* Rounded corners */
-    text-align: center;          /* Center text */
-    border: 1px solid #e9ecef;   /* Light border */
+  background: #f8f9fa; /* Light gray background */
+  padding: 15px; /* Inner spacing */
+  border-radius: 8px; /* Rounded corners */
+  text-align: center; /* Center text */
+  border: 1px solid #e9ecef; /* Light border */
 }
 
 /* Large numbers in stat cards */
 .stat-value {
-    font-size: 1.5em;       /* Large text */
-    font-weight: bold;      /* Bold text */
-    color: #2c5530;         /* Dark green color */
+  font-size: 1.5em; /* Large text */
+  font-weight: bold; /* Bold text */
+  color: #2c5530; /* Dark green color */
 }
 
 /* Labels under stat numbers */
 .stat-label {
-    font-size: 0.9em;       /* Slightly smaller text */
-    color: #666;            /* Gray color */
-    margin-top: 5px;        /* Space above label */
+  font-size: 0.9em; /* Slightly smaller text */
+  color: #666; /* Gray color */
+  margin-top: 5px; /* Space above label */
 }
 
 /* ========================================
@@ -177,94 +189,95 @@ button:hover {
 
 /* Main table styling */
 table {
-    width: 100%;             /* Full width of container */
-    border-collapse: collapse;   /* Removes gaps between cells */
-    margin-top: 20px;        /* Space above table */
+  width: 100%; /* Full width of container */
+  border-collapse: collapse; /* Removes gaps between cells */
+  margin-top: 20px; /* Space above table */
 }
 
 /* Table headers and cells */
-th, td {
-    border: 1px solid #ddd;  /* Light gray borders */
-    padding: 12px;           /* Inner spacing */
-    text-align: center;      /* Center text in cells */
+th,
+td {
+  border: 1px solid #ddd; /* Light gray borders */
+  padding: 12px; /* Inner spacing */
+  text-align: center; /* Center text in cells */
 }
 
 /* Table headers only */
 th {
-    background-color: #4a7c59;   /* Green background */
-    color: white;                /* White text */
-    font-weight: bold;           /* Bold text */
+  background-color: #4a7c59; /* Green background */
+  color: white; /* White text */
+  font-weight: bold; /* Bold text */
 }
 
 /* Alternate row coloring for better readability */
 tr:nth-child(even) {
-    background-color: #f9f9f9;   /* Light gray for even rows */
+  background-color: #f9f9f9; /* Light gray for even rows */
 }
 
 /* Row hover effect - highlights row when mouse hovers over */
 tr:hover {
-    background-color: #e8f5e8;   /* Light green on hover */
+  background-color: #e8f5e8; /* Light green on hover */
 }
 
 /* Delete buttons in table */
 .delete-btn {
-    background-color: #dc3545;   /* Red background */
-    color: white;                /* White text */
-    border: none;                /* Remove border */
-    padding: 5px 10px;           /* Smaller padding than main buttons */
-    border-radius: 3px;          /* Slightly rounded corners */
-    cursor: pointer;             /* Hand cursor */
-    font-size: 12px;             /* Smaller text */
+  background-color: #dc3545; /* Red background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  padding: 5px 10px; /* Smaller padding than main buttons */
+  border-radius: 3px; /* Slightly rounded corners */
+  cursor: pointer; /* Hand cursor */
+  font-size: 12px; /* Smaller text */
 }
 
 /* Delete button hover effect */
 .delete-btn:hover {
-    background-color: #c82333;   /* Darker red on hover */
+  background-color: #c82333; /* Darker red on hover */
 }
 
 /* Toggle handicap inclusion buttons */
 .toggle-handicap-btn {
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .toggle-handicap-btn.included {
-    background-color: #28a745;   /* Green for included */
-    color: white;
+  background-color: #28a745; /* Green for included */
+  color: white;
 }
 
 .toggle-handicap-btn.excluded {
-    background-color: #6c757d;   /* Gray for excluded */
-    color: white;
+  background-color: #6c757d; /* Gray for excluded */
+  color: white;
 }
 
 .toggle-handicap-btn:hover {
-    opacity: 0.8;                /* Slight transparency on hover */
+  opacity: 0.8; /* Slight transparency on hover */
 }
 
 /* Course type indicators */
 .course-type-regulation {
-    color: #28a745;              /* Green for regulation */
-    font-weight: bold;
+  color: #28a745; /* Green for regulation */
+  font-weight: bold;
 }
 
 .course-type-executive {
-    color: #ffc107;              /* Yellow for executive */
-    font-weight: bold;
+  color: #ffc107; /* Yellow for executive */
+  font-weight: bold;
 }
 
 .course-type-par3 {
-    color: #17a2b8;              /* Blue for par 3 */
-    font-weight: bold;
+  color: #17a2b8; /* Blue for par 3 */
+  font-weight: bold;
 }
 
 .course-type-practice {
-    color: #6c757d;              /* Gray for practice */
-    font-weight: bold;
+  color: #6c757d; /* Gray for practice */
+  font-weight: bold;
 }
 
 /* ========================================
@@ -273,43 +286,66 @@ tr:hover {
 
 /* Tablet styles - screens smaller than 768px wide */
 @media (max-width: 768px) {
-    /* Make form single column on smaller screens */
-    .input-section {
-        grid-template-columns: 1fr;  /* Single column layout */
-    }
-    
-    /* Stats grid becomes 2 columns on tablets */
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);  /* 2 equal columns */
-    }
-    
-    /* Smaller handicap number on mobile */
-    .handicap-number {
-        font-size: 2em;  /* Reduce from 3em to 2em */
-    }
-    
-    /* Smaller table text on mobile */
-    table {
-        font-size: 12px;  /* Smaller text */
-    }
-    
-    /* Reduce table padding on mobile */
-    th, td {
-        padding: 8px;  /* Less padding than desktop */
-    }
+  /* Make form single column on smaller screens */
+  .input-section {
+    grid-template-columns: 1fr; /* Single column layout */
+  }
+
+  /* Stats grid becomes 2 columns on tablets */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+  }
+
+  /* Smaller handicap number on mobile */
+  .handicap-number {
+    font-size: 2em; /* Reduce from 3em to 2em */
+  }
+
+  /* Smaller table text on mobile */
+  table {
+    font-size: 12px; /* Smaller text */
+  }
+
+  /* Reduce table padding on mobile */
+  th,
+  td {
+    padding: 8px; /* Less padding than desktop */
+  }
 }
 
 /* Phone styles - screens smaller than 480px wide */
 @media (max-width: 480px) {
-    /* Stats grid becomes single column on phones */
-    .stats-grid {
-        grid-template-columns: 1fr;  /* Single column */
-    }
-    
-    /* Reduce container padding on very small screens */
-    .container {
-        padding: 15px;  /* Less padding than larger screens */
-    }
+  /* Stats grid becomes single column on phones */
+  .stats-grid {
+    grid-template-columns: 1fr; /* Single column */
+  }
+
+  /* Reduce container padding on very small screens */
+  .container {
+    padding: 15px; /* Less padding than larger screens */
+  }
+}
+
+/* ========================================
+   7. TABLE SORTING STYLES
+   ======================================== */
+
+/* Sortable table headers */
+.sortable {
+  cursor: pointer; /* Show hand cursor to indicate clickable */
+  user-select: none; /* Prevent text selection when clicking */
+  position: relative; /* For potential future enhancements */
+}
+
+/* Hover effect for sortable headers */
+.sortable:hover {
+  background-color: #3a6b42 !important; /* Slightly lighter green on hover */
+}
+
+/* Active sort indicator styling */
+.sorted-asc,
+.sorted-desc {
+  background-color: #2c5530 !important; /* Darker green for currently sorted column */
 }
 
 /* ========================================
