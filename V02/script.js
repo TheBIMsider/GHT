@@ -41,14 +41,14 @@ const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/wshtvyw9sdvff';
 
 // Set today's date as default when page loads
 // This runs automatically when the HTML document is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // Set the date input to today's date
     document.getElementById('date').valueAsDate = new Date();
     
-    // Load existing rounds from Google Sheets
-    loadRounds();
+    // Load existing rounds from Google Sheets and WAIT for completion
+    await loadRounds();
     
-    // Update the display with loaded data
+    // Update the display with loaded data (this now happens AFTER loading)
     updateDisplay();
 });
 
@@ -305,9 +305,8 @@ async function loadRounds() {
         }
     }
     
-    // FORCE UPDATE DISPLAY after loading
-    console.log('About to update display with', rounds.length, 'rounds');
-    updateDisplay();
+    // DON'T call updateDisplay here - let the calling function handle it
+    console.log('loadRounds completed with', rounds.length, 'rounds');
 }
 
 // ========================================
