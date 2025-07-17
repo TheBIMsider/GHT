@@ -24,7 +24,7 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 
 [View Live App - Version 2](https://thebimsider.github.io/GHT/V02/)
 
-## 📱 Screenshots
+## 📱 Screenshot
 
 <img width="1202" height="940" alt="GHT" src="https://github.com/user-attachments/assets/ce991f40-f21a-4bb3-b150-d9ff3df906c8" />
 
