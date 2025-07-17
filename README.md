@@ -24,9 +24,9 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 - **Mobile Responsive** - Works perfectly on desktop, tablet, and mobile devices
 - **No Installation Required** - Runs entirely in the browser
 
-## 🚀 Live Demo *(Uses dummy data for demonstration)*
+## 🚀 Live Demo 
 
-[View Live App](https://thebimsider.github.io/GHT/V02/)
+[View Live App](https://thebimsider.github.io/GHT/V02/) *(Uses dummy data for demonstration)*
 
 ## 📱 Screenshot
 
@@ -74,7 +74,7 @@ The app follows official USGA guidelines and provides **two separate handicap ca
      id | date | course | courseType | includeInHandicap | holes | score | par | adjScore | rating | slope | differential
      ```
    - Connect your sheet to SheetDB and get your API URL
-3. **Update the API URL** in `script.js`:
+3. **Update the API URL** in `script.js` (line ~32):
    ```javascript
    const SHEETDB_API_URL = 'YOUR_SHEETDB_API_URL_HERE';
    ```
@@ -93,7 +93,9 @@ The app follows official USGA guidelines and provides **two separate handicap ca
 
 2. Set up SheetDB (same as above)
 
-3. Open `index.html` in your browser or use a local server:
+3. Update the API URL in `script.js`
+
+4. Open `index.html` in your browser or use a local server:
    ```bash
    # Using Python
    python -m http.server 8000
@@ -101,6 +103,12 @@ The app follows official USGA guidelines and provides **two separate handicap ca
    # Using Node.js
    npx serve .
    ```
+
+### 📋 Important Notes
+
+- **Demo Data**: The live demo uses dummy golf data. Your forked version will be empty until you add your own rounds.
+- **Free SheetDB Limits**: Free accounts have monthly API call limits. For heavy usage, consider upgrading your SheetDB plan.
+- **Data Privacy**: Once you set up your own SheetDB connection, your golf data is private and stored in your own Google Sheet.
 
 ## 📊 Google Sheets Setup
 
