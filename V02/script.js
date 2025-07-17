@@ -605,13 +605,24 @@ async function toggleHandicapInclusion(roundId) {
     // TOGGLE THE INCLUSION STATUS
     round.includeInHandicap = !round.includeInHandicap;
 
+    // UPDATE DISPLAY IMMEDIATELY (optimistic update)
+    updateDisplay();
+
     // UPDATE IN GOOGLE SHEETS
     await updateRoundInSheet(round);
 
-    // UPDATE DISPLAY
-    updateDisplay();
+    console.log('Successfully updated round in Google Sheets');
   } catch (error) {
+    // If sheet update fails, revert the change and update display again
     console.error('Error toggling handicap inclusion:', error);
+
+    // REVERT THE CHANGE
+    const round = rounds.find((r) => r.id === roundId);
+    if (round) {
+      round.includeInHandicap = !round.includeInHandicap;
+      updateDisplay(); // Update display to show reverted state
+    }
+
     alert('Error updating round. Please try again.');
   }
 }
