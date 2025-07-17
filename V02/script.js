@@ -212,18 +212,32 @@ async function loadRoundsFromSheet() {
         
         const data = await response.json();
         
+        // CHECK IF DATA IS EMPTY or if there's an error
+        if (!data || data.length === 0) {
+            console.log('No rounds found in Google Sheet');
+            return [];
+        }
+        
         // CONVERT STRING NUMBERS BACK TO ACTUAL NUMBERS
         // Google Sheets stores everything as strings, so we need to convert back
-        return data.map(round => ({
-            ...round,                                      // Keep all existing properties
-            holes: parseInt(round.holes),                  // Convert to integer
-            score: parseInt(round.score),                  // Convert to integer
-            par: parseInt(round.par),                      // Convert to integer
-            adjScore: parseInt(round.adjScore),            // Convert to integer
-            rating: parseFloat(round.rating),              // Convert to decimal
-            slope: parseInt(round.slope),                  // Convert to integer
-            differential: parseFloat(round.differential)   // Convert to decimal - CRITICAL for handicap calc
-        }));
+        return data.map(round => {
+            // HANDLE POTENTIAL MISSING OR INVALID DATA
+            const convertedRound = {
+                ...round,                                      // Keep all existing properties
+                holes: parseInt(round.holes) || 0,            // Convert to integer, default to 0
+                score: parseInt(round.score) || 0,            // Convert to integer, default to 0
+                par: parseInt(round.par) || 0,                // Convert to integer, default to 0
+                adjScore: parseInt(round.adjScore) || 0,      // Convert to integer, default to 0
+                rating: parseFloat(round.rating) || 0,        // Convert to decimal, default to 0
+                slope: parseInt(round.slope) || 0,            // Convert to integer, default to 0
+                differential: parseFloat(round.differential) || 0  // Convert to decimal - CRITICAL for handicap calc
+            };
+            
+            // LOG EACH ROUND for debugging
+            console.log('Loaded round:', convertedRound);
+            
+            return convertedRound;
+        });
         
     } catch (error) {
         console.error('Error loading rounds from sheet:', error);
