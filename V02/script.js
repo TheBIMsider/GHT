@@ -33,7 +33,7 @@ let rounds = [];
 // SheetDB Configuration - Your Google Sheets API endpoint
 // IMPORTANT: This URL connects to your specific Google Sheet
 // If you need to change sheets, update this URL from your SheetDB dashboard
-const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/wshtvyw9sdvff';
+const SHEETDB_API_URL = https://sheetdb.io/api/v1/95ui9w280ruih';
 
 // ========================================
 // INITIALIZATION - RUNS WHEN PAGE LOADS
