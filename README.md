@@ -14,6 +14,7 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 - **9-Hole and 18-Hole Support** - Automatically converts 9-hole scores to 18-hole equivalents
 - **Cloud Data Storage** - Saves all rounds to Google Sheets via SheetDB API
 - **Round Management** - Add, view, and delete golf rounds with detailed course information
+- **Sortable Round History** - Click any column header to sort your rounds (date, course, type, score, etc.)
 - **Statistics Dashboard** - Track total rounds, average score, best score, and recent trends
 - **Course Type Classification** - Support for regulation, executive, par-3, and practice rounds
 - **Handicap Inclusion Control** - Choose which rounds to include/exclude from handicap calculation
@@ -110,6 +111,8 @@ Your Google Sheet should have these columns:
 - **Course Rating & Slope**: Find these on the course scorecard or website - they're essential for accurate handicap calculation
 - **9-Hole Rounds**: Enter the actual 9-hole score and par; the app automatically doubles them for handicap purposes
 - **Course Types**: Use "practice" for casual rounds you don't want in your official handicap
+- **Sorting**: Click any column header in the Round History table to sort your data - click again to reverse the order
+- **Visual Sort Indicators**: Look for ↑↓ arrows in column headers to see which column is currently sorted
 - **Data Backup**: Your data is automatically saved to Google Sheets, providing cloud backup and sync across devices
 
 ## 🔧 Customization
@@ -166,6 +169,8 @@ golf-handicap-tracker/
 - **Improved Reliability**: Cloud backup ensures your golf history is always safe
 - **Enhanced Course Management**: Better support for different course types
 - **Handicap Inclusion Control**: Choose which rounds count toward your handicap
+- **Sortable Tables**: Click column headers to sort round history by any field
+- **Real-time Updates**: Statistics update instantly when toggling round inclusion
 
 ### [Version 1.0](https://github.com/TheBIMsider/GHT/tree/main/V01) - Browser Storage
 - **Local Storage Only**: Data stored in browser's localStorage
