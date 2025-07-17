@@ -6,9 +6,9 @@ A simple, web-based golf handicap calculator that helps golfers track their roun
 
 ## 🤖 AI-Powered Development
 
-This project was created as a "vibe coding" session using **Claude Sonnet 4** AI assistance, with human guidance and golf expertise provided by **Carl Storms** aka ["The BIMsider"](https://bio.link/thebimsider). Carl's unfortunately high golf scores serve as realistic test data throughout the examples! 🏌️‍♂️⛳
+This project was created as a "vibe coding" session using **Claude Sonnet 4** AI assistance, with human guidance and golf expertise provided by **Carl Storms** aka ["The BIMsider"](https://bio.link/thebimsider). Carl's unfortunately high golf scores serve as the "dummy data" in the demo - though we assure you, those scores are very real! 🏌️‍♂️⛳
 
-*A collaboration between human creativity and AI efficiency - proving that even bad golfers can build good apps.*
+*A collaboration between human creativity and AI efficiency - proving that even bad golfers can build good apps (and that maybe Carl is the real dummy here, at least where golf scores are concerned, not the data).*
 
 ## ✨ Features
 
