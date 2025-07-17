@@ -64,6 +64,7 @@
                 <input type="number" id="slope" placeholder="e.g., 113" required>
             </div>
             
+            <!-- Course type dropdown -->
             <div class="input-group">
                 <label for="courseType">Course Type:</label>
                 <select id="courseType" required>
@@ -75,6 +76,7 @@
                 </select>
             </div>
             
+            <!-- Include in handicap dropdown -->
             <div class="input-group">
                 <label for="includeInHandicap">Include in Handicap:</label>
                 <select id="includeInHandicap" required>
@@ -130,12 +132,14 @@
                 <tr>
                     <th>Date</th>
                     <th>Course</th>
+                    <th>Type</th>
                     <th>Holes</th>
                     <th>Score</th>
                     <th>Par</th>
-                    <th>18-Hole Score</th> <!-- 9-hole scores get doubled -->
-                    <th>Differential</th>    <!-- Used for handicap calculation -->
-                    <th>Action</th>         <!-- Delete button -->
+                    <th>18-Hole Score</th>
+                    <th>Differential</th>
+                    <th>In Handicap</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <!-- Table body gets filled by JavaScript -->
