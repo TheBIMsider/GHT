@@ -2,6 +2,12 @@
 
 A simple, web-based golf handicap calculator that helps golfers track their rounds and calculate their USGA Handicap Index. Built with vanilla HTML, CSS, and JavaScript, designed to be hosted on GitHub Pages with data storage via Google Sheets.
 
+## 🤖 AI-Powered Development
+
+This project was created as a "vibe coding" session using **Claude Sonnet 4** AI assistance, with human guidance and golf expertise provided by **Carl Storms** aka ["The BIMsider"](https://github.com/thebimssider). Carl's unfortunately high golf scores serve as realistic test data throughout the examples! 🏌️‍♂️⛳
+
+*A collaboration between human creativity and AI efficiency - proving that even bad golfers can build good apps.*
+
 ## ✨ Features
 
 - **Official USGA Handicap Calculation** - Follows current USGA rules for handicap index calculation
@@ -16,7 +22,7 @@ A simple, web-based golf handicap calculator that helps golfers track their roun
 
 ## 🚀 Live Demo
 
-[View Live App](https://yourusername.github.io/golf-handicap-tracker)
+[View Live App - Version 2](https://thebimsider.github.io/GHT/V02/)
 
 ## 📱 Screenshots
 
@@ -152,7 +158,7 @@ golf-handicap-tracker/
 
 ## 📋 Version History
 
-### Version 2.0 (Current) - Cloud Storage
+### [Version 2.0](https://thebimsider.github.io/GHT/V02/) (Current) - Cloud Storage
 - **Google Sheets Integration**: All data now stored in Google Sheets via SheetDB API
 - **Cross-Device Sync**: Access your handicap data from any device
 - **Data Persistence**: No more lost data when clearing browser cache
@@ -160,7 +166,7 @@ golf-handicap-tracker/
 - **Enhanced Course Management**: Better support for different course types
 - **Handicap Inclusion Control**: Choose which rounds count toward your handicap
 
-### Version 1.0 - Browser Storage
+### [Version 1.0](https://thebimsider.github.io/GHT/V01/) - Browser Storage
 - **Local Storage Only**: Data stored in browser's localStorage
 - **Basic Handicap Calculation**: USGA-compliant handicap calculation
 - **9-Hole Support**: Automatic conversion of 9-hole to 18-hole scores
