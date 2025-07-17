@@ -8,4 +8,5 @@ You can view all versions of this project site using the links below 👇 (Most 
 
 Version 2 
 
-Version 1 
+[Version 1](https://thebimsider.github.io/GHT/V01/)   
+
