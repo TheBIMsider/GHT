@@ -6,7 +6,7 @@ Have a place to keep a digital copy of my resume and CV that can be easily updat
 Explore coding with AI assistance, in this case using tools like Claude, v0 by Vercel and Cursor - The AI Code Editor.
 You can view all versions of this project site using the links below 👇 (Most current on top)
 
-Version 2 
+[Version 2](https://thebimsider.github.io/GHT/V02/)    
 
 [Version 1](https://thebimsider.github.io/GHT/V01/)   
 
