@@ -63,6 +63,25 @@
                 <label for="slope">Slope Rating:</label>
                 <input type="number" id="slope" placeholder="e.g., 113" required>
             </div>
+            
+            <div class="input-group">
+                <label for="courseType">Course Type:</label>
+                <select id="courseType" required>
+                    <option value="">Select type</option>
+                    <option value="regulation">Regulation Course</option>
+                    <option value="executive">Executive Course</option>
+                    <option value="par3">Par 3 Course</option>
+                    <option value="practice">Practice Round</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="includeInHandicap">Include in Handicap:</label>
+                <select id="includeInHandicap" required>
+                    <option value="true">Yes - Include</option>
+                    <option value="false">No - Exclude</option>
+                </select>
+            </div>
         </div>
         
         <!-- Button to submit the form and add the round -->

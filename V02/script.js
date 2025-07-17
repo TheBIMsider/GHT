@@ -118,11 +118,13 @@ async function addRound() {
             id: Date.now().toString(),        // Unique ID using timestamp
             date: date,                       // Date played
             course: course,                   // Course name
+            courseType: courseType,           // Course type (regulation, executive, etc.)
+            includeInHandicap: includeInHandicap, // Whether to include in handicap calculation
             holes: holes,                     // 9 or 18 holes
             score: score,                     // Original score
             par: par,                         // Original par
             adjScore: adjScore,               // 18-hole equivalent score
-            rating: rating,                   // Original course rating (not doubled)
+            rating: rating,                   // Course rating
             slope: slope,                     // Slope rating
             differential: parseFloat(differential.toFixed(2))  // Differential as number, rounded to 2 decimals
         };
@@ -240,7 +242,9 @@ async function loadRoundsFromSheet() {
                 adjScore: parseInt(round.adjScore) || 0,      // Convert to integer, default to 0
                 rating: parseFloat(round.rating) || 0,        // Convert to decimal, default to 0
                 slope: parseInt(round.slope) || 0,            // Convert to integer, default to 0
-                differential: parseFloat(round.differential) || 0  // Convert to decimal - CRITICAL for handicap calc
+                differential: parseFloat(round.differential) || 0,  // Convert to decimal - CRITICAL for handicap calc
+                courseType: round.courseType || 'regulation', // Default to regulation if missing
+                includeInHandicap: round.includeInHandicap === 'true' || round.includeInHandicap === true || !round.hasOwnProperty('includeInHandicap') // Default to true for existing rounds
             };
             
             // LOG EACH ROUND for debugging
@@ -332,21 +336,28 @@ function calculateHandicap() {
     // CAN'T CALCULATE WITHOUT ROUNDS
     if (rounds.length === 0) return null;
     
+    // FILTER TO ONLY ROUNDS INCLUDED IN HANDICAP
+    const handicapRounds = rounds.filter(round => round.includeInHandicap);
+    
+    console.log(`Calculating handicap with ${handicapRounds.length} rounds (filtered from ${rounds.length} total rounds)`);
+    
+    if (handicapRounds.length === 0) return null;
+    
     // SORT BY DIFFERENTIAL (best scores first)
     // We use the best differentials, not just recent scores
-    const sortedRounds = [...rounds].sort((a, b) => a.differential - b.differential);
+    const sortedRounds = [...handicapRounds].sort((a, b) => a.differential - b.differential);
     
-    // DETERMINE HOW MANY ROUNDS TO USE based on total rounds played
+    // DETERMINE HOW MANY ROUNDS TO USE based on handicap rounds played
     // This follows official USGA guidelines
     let roundsToUse;
-    if (rounds.length >= 20) {
+    if (handicapRounds.length >= 20) {
         roundsToUse = 8;                                    // Use best 8 of 20+ rounds
-    } else if (rounds.length >= 10) {
-        roundsToUse = Math.floor(rounds.length * 0.4);      // Use best 40% of 10-19 rounds
-    } else if (rounds.length >= 5) {
-        roundsToUse = Math.floor(rounds.length * 0.3);      // Use best 30% of 5-9 rounds
+    } else if (handicapRounds.length >= 10) {
+        roundsToUse = Math.floor(handicapRounds.length * 0.4);      // Use best 40% of 10-19 rounds
+    } else if (handicapRounds.length >= 5) {
+        roundsToUse = Math.floor(handicapRounds.length * 0.3);      // Use best 30% of 5-9 rounds
     } else {
-        roundsToUse = Math.min(1, rounds.length);           // Use best 1 round if less than 5
+        roundsToUse = Math.min(1, handicapRounds.length);           // Use best 1 round if less than 5
     }
     
     // CALCULATE AVERAGE of the best differentials
@@ -357,7 +368,8 @@ function calculateHandicap() {
     // This slightly reduces the handicap to encourage improvement
     return {
         handicap: avgDifferential * 0.96,
-        roundsUsed: roundsToUse
+        roundsUsed: roundsToUse,
+        totalHandicapRounds: handicapRounds.length
     };
 }
 
@@ -432,11 +444,13 @@ function updateRoundsTable() {
         row.innerHTML = `
             <td>${formatDateForDisplay(round.date)}</td>
             <td>${round.course}</td>
+            <td><span class="course-type-${round.courseType || 'regulation'}">${getCourseTypeDisplay(round.courseType || 'regulation')}</span></td>
             <td>${round.holes}</td>
             <td>${round.score}</td>
             <td>${round.par}</td>
             <td>${round.adjScore}</td>
             <td>${parseFloat(round.differential).toFixed(1)}</td>
+            <td><button class="toggle-handicap-btn ${round.includeInHandicap ? 'included' : 'excluded'}" onclick="toggleHandicapInclusion('${round.id}')">${round.includeInHandicap ? 'Yes' : 'No'}</button></td>
             <td><button class="delete-btn" onclick="deleteRound('${round.id}')">Delete</button></td>
         `;
     });
@@ -456,11 +470,10 @@ function updateHandicapDisplay() {
     const handicapDisplay = document.getElementById('handicapDisplay');
     const roundsUsed = document.getElementById('roundsUsed');
     
-    // UPDATE THE DISPLAY
     if (handicapResult) {
         // SHOW HANDICAP rounded to 1 decimal place
         handicapDisplay.textContent = handicapResult.handicap.toFixed(1);
-        roundsUsed.textContent = handicapResult.roundsUsed;
+        roundsUsed.textContent = `${handicapResult.roundsUsed} of ${handicapResult.totalHandicapRounds} eligible`;
     } else {
         // SHOW PLACEHOLDER if no rounds
         handicapDisplay.textContent = '--';
@@ -527,6 +540,70 @@ function clearForm() {
     document.getElementById('par').value = '';
     document.getElementById('rating').value = '';
     document.getElementById('slope').value = '';
+    document.getElementById('courseType').value = '';
+    document.getElementById('includeInHandicap').value = 'true'; // Default to include
+}
+
+/**
+ * TOGGLE HANDICAP INCLUSION
+ * Allows user to include/exclude rounds from handicap calculation
+ */
+async function toggleHandicapInclusion(roundId) {
+    try {
+        // FIND THE ROUND
+        const round = rounds.find(r => r.id === roundId);
+        if (!round) return;
+        
+        // TOGGLE THE INCLUSION STATUS
+        round.includeInHandicap = !round.includeInHandicap;
+        
+        // UPDATE IN GOOGLE SHEETS
+        await updateRoundInSheet(round);
+        
+        // UPDATE DISPLAY
+        updateDisplay();
+        
+    } catch (error) {
+        console.error('Error toggling handicap inclusion:', error);
+        alert('Error updating round. Please try again.');
+    }
+}
+
+/**
+ * UPDATE ROUND IN GOOGLE SHEETS
+ * Updates an existing round's data
+ */
+async function updateRoundInSheet(round) {
+    const response = await fetch(`${SHEETDB_API_URL}/id/${round.id}`, {
+        method: 'PATCH',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            data: round
+        })
+    });
+    
+    if (!response.ok) {
+        throw new Error('Failed to update round in sheet');
+    }
+    
+    return response.json();
+}
+
+/**
+ * GET COURSE TYPE DISPLAY TEXT
+ * Returns user-friendly text for course types
+ */
+function getCourseTypeDisplay(courseType) {
+    const types = {
+        'regulation': 'Regulation',
+        'executive': 'Executive',
+        'par3': 'Par 3',
+        'practice': 'Practice'
+    };
+    return types[courseType] || 'Regulation';
 }
 
 /* ========================================
