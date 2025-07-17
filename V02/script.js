@@ -88,20 +88,30 @@ async function addRound() {
         // This is important for handicap consistency
         let adjScore = score;    // Adjusted score (may be doubled)
         let adjPar = par;        // Adjusted par (may be doubled)  
-        let adjRating = rating;  // Adjusted rating (may be doubled)
         
-        // If it's a 9-hole round, double everything to make it equivalent to 18 holes
+        // If it's a 9-hole round, double the score and par to make it equivalent to 18 holes
+        // BUT DO NOT double rating and slope - they're already 18-hole equivalent values
         if (holes === 9) {
             adjScore = score * 2;
             adjPar = par * 2;
-            adjRating = rating * 2;
+            // rating and slope stay the same - they're already 18-hole equivalent
         }
         
         // CALCULATE DIFFERENTIAL (used for handicap calculation)
-        // Formula: ((Adjusted Score - Adjusted Course Rating) × 113) ÷ Slope Rating
-        // 113 is the standard slope rating used in the formula
-        // IMPORTANT: Use adjRating (doubled for 9-hole), not original rating
-        const differential = ((adjScore - adjRating) * 113) / slope;
+        // Formula: ((Adjusted Score - Course Rating) × 113) ÷ Slope Rating
+        // For 9-hole: Use doubled score but original rating/slope
+        const differential = ((adjScore - rating) * 113) / slope;
+        
+        // DEBUG: Log the calculation for troubleshooting
+        console.log('Differential calculation:', {
+            holes: holes,
+            originalScore: score,
+            rating: rating,
+            adjScore: adjScore,
+            slope: slope,
+            differential: differential,
+            formula: `((${adjScore} - ${rating}) × 113) ÷ ${slope} = ${differential}`
+        });
         
         // CREATE ROUND OBJECT with all the data
         const round = {
