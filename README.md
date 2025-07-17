@@ -166,7 +166,7 @@ golf-handicap-tracker/
 - **Enhanced Course Management**: Better support for different course types
 - **Handicap Inclusion Control**: Choose which rounds count toward your handicap
 
-### [Version 1.0](https://thebimsider.github.io/GHT/V01/) - Browser Storage
+### [Version 1.0](https://github.com/TheBIMsider/GHT/tree/main/V01) - Browser Storage
 - **Local Storage Only**: Data stored in browser's localStorage
 - **Basic Handicap Calculation**: USGA-compliant handicap calculation
 - **9-Hole Support**: Automatic conversion of 9-hole to 18-hole scores
