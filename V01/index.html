@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf Handicap Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🏌️‍♂️ Golf Handicap Tracker</h1>
+        
+        <h2>Add New Round</h2>
+        <div class="input-section">
+            <div class="input-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="course">Course Name:</label>
+                <input type="text" id="course" placeholder="Course name" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="holes">Holes Played:</label>
+                <select id="holes" required>
+                    <option value="">Select holes</option>
+                    <option value="9">9 Holes</option>
+                    <option value="18">18 Holes</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="score">Your Score:</label>
+                <input type="number" id="score" placeholder="Score" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="par">Course Par:</label>
+                <input type="number" id="par" placeholder="Par" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="rating">Course Rating:</label>
+                <input type="number" id="rating" step="0.1" placeholder="e.g., 72.5" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="slope">Slope Rating:</label>
+                <input type="number" id="slope" placeholder="e.g., 113" required>
+            </div>
+        </div>
+        
+        <button onclick="addRound()">Add Round</button>
+        
+        <div class="handicap-display">
+            <div>Current Handicap Index</div>
+            <div class="handicap-number" id="handicapDisplay">--</div>
+            <div>Based on <span id="roundsUsed">0</span> rounds</div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalRounds">0</div>
+                <div class="stat-label">Total Rounds</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgScore">--</div>
+                <div class="stat-label">Average Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="bestScore">--</div>
+                <div class="stat-label">Best Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="recentTrend">--</div>
+                <div class="stat-label">Recent Trend</div>
+            </div>
+        </div>
+        
+        <h2>Round History</h2>
+        <table id="roundsTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Course</th>
+                    <th>Holes</th>
+                    <th>Score</th>
+                    <th>Par</th>
+                    <th>18-Hole Score</th>
+                    <th>Differential</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="roundsBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
