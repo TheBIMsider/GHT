@@ -191,7 +191,7 @@ golf-handicap-tracker/
 
 ## 📋 Version History
 
-### [Version 2.0](https://github.com/TheBIMsider/GHT/tree/main/V02) (Current) - Cloud Storage
+### [Version 2.0](https://thebimsider.github.io/GHT/V02/) (Current) - Cloud Storage
 - **Google Sheets Integration**: All data now stored in Google Sheets via SheetDB API
 - **Cross-Device Sync**: Access your handicap data from any device
 - **Data Persistence**: No more lost data when clearing browser cache
@@ -203,7 +203,7 @@ golf-handicap-tracker/
 - **Dual Handicap System**: Separate tracking for "All Courses" vs "Regulation Only"
 - **Dual Statistics**: Independent stats for all courses and regulation courses only
 
-### [Version 1.0](https://github.com/TheBIMsider/GHT/tree/main/V01) - Browser Storage
+### [Version 1.0](https://thebimsider.github.io/GHT/V01/) - Browser Storage
 - **Local Storage Only**: Data stored in browser's localStorage
 - **Basic Handicap Calculation**: USGA-compliant handicap calculation
 - **9-Hole Support**: Automatic conversion of 9-hole to 18-hole scores
