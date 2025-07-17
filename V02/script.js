@@ -521,6 +521,7 @@ function updateHandicapDisplay() {
 /**
  * UPDATE STATISTICS CARDS
  * Calculates and displays various golf statistics
+ * ✅ FIX: Now only uses rounds included in handicap calculation
  */
 function updateStats() {
   // GET ALL THE STATISTIC DISPLAY ELEMENTS
@@ -529,23 +530,29 @@ function updateStats() {
   const bestScore = document.getElementById('bestScore');
   const recentTrend = document.getElementById('recentTrend');
 
-  // TOTAL ROUNDS is easy - just count the array
-  totalRounds.textContent = rounds.length;
+  // ✅ FIX: Filter to only rounds included in handicap
+  const includedRounds = rounds.filter((round) => round.includeInHandicap);
 
-  if (rounds.length > 0) {
-    // AVERAGE SCORE (using 18-hole equivalent scores)
+  // TOTAL ROUNDS now shows only included rounds
+  totalRounds.textContent = includedRounds.length;
+
+  if (includedRounds.length > 0) {
+    // AVERAGE SCORE (using 18-hole equivalent scores from included rounds only)
     const avgScoreValue =
-      rounds.reduce((sum, round) => sum + round.adjScore, 0) / rounds.length;
+      includedRounds.reduce((sum, round) => sum + round.adjScore, 0) /
+      includedRounds.length;
     avgScore.textContent = avgScoreValue.toFixed(1);
 
-    // BEST SCORE (lowest 18-hole equivalent)
-    const bestScoreValue = Math.min(...rounds.map((round) => round.adjScore));
+    // BEST SCORE (lowest 18-hole equivalent from included rounds only)
+    const bestScoreValue = Math.min(
+      ...includedRounds.map((round) => round.adjScore)
+    );
     bestScore.textContent = bestScoreValue;
 
-    // RECENT TREND (compares last 5 rounds vs previous 5 rounds)
-    if (rounds.length >= 10) {
-      const recent5 = rounds.slice(0, 5); // Most recent 5 rounds
-      const previous5 = rounds.slice(5, 10); // Previous 5 rounds
+    // RECENT TREND (compares last 5 included rounds vs previous 5 included rounds)
+    if (includedRounds.length >= 10) {
+      const recent5 = includedRounds.slice(0, 5); // Most recent 5 included rounds
+      const previous5 = includedRounds.slice(5, 10); // Previous 5 included rounds
       const recentAvg =
         recent5.reduce((sum, round) => sum + round.adjScore, 0) / 5;
       const previousAvg =
@@ -556,10 +563,10 @@ function updateStats() {
       recentTrend.textContent =
         trend > 0 ? `+${trend.toFixed(1)}` : trend.toFixed(1);
     } else {
-      recentTrend.textContent = '--'; // Not enough rounds for trend
+      recentTrend.textContent = '--'; // Not enough included rounds for trend
     }
   } else {
-    // NO ROUNDS - show placeholders
+    // NO INCLUDED ROUNDS - show placeholders
     avgScore.textContent = '--';
     bestScore.textContent = '--';
     recentTrend.textContent = '--';
