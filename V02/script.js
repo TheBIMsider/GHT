@@ -272,10 +272,19 @@ async function loadRounds() {
     try {
         // SHOW LOADING INDICATOR
         document.getElementById('handicapDisplay').textContent = 'Loading...';
+        console.log('Starting to load rounds from Google Sheets...');
         
         // LOAD FROM GOOGLE SHEETS
         rounds = await loadRoundsFromSheet();
-        rounds.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort newest first
+        console.log('Raw rounds loaded:', rounds);
+        console.log('Number of rounds loaded:', rounds.length);
+        
+        // SORT BY DATE (newest first)
+        rounds.sort((a, b) => new Date(b.date) - new Date(a.date));
+        console.log('Rounds after sorting:', rounds);
+        
+        // LOG SUCCESS
+        console.log('Successfully loaded', rounds.length, 'rounds from Google Sheets');
         
     } catch (error) {
         console.error('Error loading rounds:', error);
@@ -287,12 +296,18 @@ async function loadRounds() {
             if (savedRounds) {
                 rounds = JSON.parse(savedRounds);
                 rounds.sort((a, b) => new Date(b.date) - new Date(a.date));
-                console.log('Loaded rounds from localStorage backup');
+                console.log('Loaded rounds from localStorage backup:', rounds.length, 'rounds');
+            } else {
+                console.log('No localStorage backup found');
             }
         } catch (localError) {
-            console.log('No local backup available');
+            console.log('No local backup available', localError);
         }
     }
+    
+    // FORCE UPDATE DISPLAY after loading
+    console.log('About to update display with', rounds.length, 'rounds');
+    updateDisplay();
 }
 
 // ========================================
@@ -346,9 +361,13 @@ function calculateHandicap() {
  * Calls all the individual update functions to refresh the entire display
  */
 function updateDisplay() {
+    console.log('updateDisplay called with', rounds.length, 'rounds');
+    
     updateRoundsTable();        // Update the table of rounds
     updateHandicapDisplay();    // Update the main handicap number
     updateStats();              // Update the statistics cards
+    
+    console.log('Display update completed');
 }
 
 /**
@@ -374,12 +393,29 @@ function formatDateForDisplay(dateString) {
  * Rebuilds the HTML table showing all previous rounds
  */
 function updateRoundsTable() {
+    console.log('updateRoundsTable called with', rounds.length, 'rounds');
+    
     // GET THE TABLE BODY element where we'll add rows
     const tbody = document.getElementById('roundsBody');
+    
+    if (!tbody) {
+        console.error('Could not find table body element with ID "roundsBody"');
+        return;
+    }
+    
     tbody.innerHTML = ''; // Clear existing rows
+    console.log('Cleared existing table rows');
+    
+    // CHECK IF WE HAVE ROUNDS TO DISPLAY
+    if (rounds.length === 0) {
+        console.log('No rounds to display in table');
+        return;
+    }
     
     // ADD A ROW FOR EACH ROUND
-    rounds.forEach(round => {
+    rounds.forEach((round, index) => {
+        console.log(`Adding row ${index + 1} for round:`, round);
+        
         const row = tbody.insertRow(); // Create new table row
         
         // FILL THE ROW with round data
@@ -395,6 +431,8 @@ function updateRoundsTable() {
             <td><button class="delete-btn" onclick="deleteRound('${round.id}')">Delete</button></td>
         `;
     });
+    
+    console.log('Table update completed, added', rounds.length, 'rows');
 }
 
 /**
