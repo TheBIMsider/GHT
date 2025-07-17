@@ -158,7 +158,7 @@ golf-handicap-tracker/
 
 ## 📋 Version History
 
-### [Version 2.0](https://thebimsider.github.io/GHT/V02/) (Current) - Cloud Storage
+### [Version 2.0](https://github.com/TheBIMsider/GHT/tree/main/V02) (Current) - Cloud Storage
 - **Google Sheets Integration**: All data now stored in Google Sheets via SheetDB API
 - **Cross-Device Sync**: Access your handicap data from any device
 - **Data Persistence**: No more lost data when clearing browser cache
