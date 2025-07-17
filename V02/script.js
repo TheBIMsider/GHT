@@ -443,13 +443,13 @@ function updateRoundsTable() {
         // Use formatDateForDisplay to fix timezone issues
         row.innerHTML = `
             <td>${formatDateForDisplay(round.date)}</td>
-            <td>${round.course}</td>
+            <td>${round.course || ''}</td>
             <td><span class="course-type-${round.courseType || 'regulation'}">${getCourseTypeDisplay(round.courseType || 'regulation')}</span></td>
-            <td>${round.holes}</td>
-            <td>${round.score}</td>
-            <td>${round.par}</td>
-            <td>${round.adjScore}</td>
-            <td>${parseFloat(round.differential).toFixed(1)}</td>
+            <td>${round.holes || ''}</td>
+            <td>${round.score || ''}</td>
+            <td>${round.par || ''}</td>
+            <td>${round.adjScore || ''}</td>
+            <td>${round.differential ? parseFloat(round.differential).toFixed(1) : ''}</td>
             <td><button class="toggle-handicap-btn ${round.includeInHandicap ? 'included' : 'excluded'}" onclick="toggleHandicapInclusion('${round.id}')">${round.includeInHandicap ? 'Yes' : 'No'}</button></td>
             <td><button class="delete-btn" onclick="deleteRound('${round.id}')">Delete</button></td>
         `;
