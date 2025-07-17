@@ -24,7 +24,7 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 - **Mobile Responsive** - Works perfectly on desktop, tablet, and mobile devices
 - **No Installation Required** - Runs entirely in the browser
 
-## 🚀 Live Demo
+## 🚀 Live Demo *(Uses dummy data for demonstration)*
 
 [View Live App](https://thebimsider.github.io/GHT/V02/)
 
