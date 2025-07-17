@@ -95,15 +95,25 @@
       <!-- Button to submit the form and add the round -->
       <button onclick="addRound()">Add Round</button>
 
-      <!-- SECTION 2: Display current handicap prominently -->
+      <!-- SECTION 2: Display current handicaps prominently -->
+      <!-- Overall Handicap (All Course Types) -->
       <div class="handicap-display">
-        <div>Current Handicap Index</div>
+        <div>Current Handicap Index - All Courses</div>
         <!-- This number gets updated by JavaScript -->
         <div class="handicap-number" id="handicapDisplay">--</div>
         <div>Based on <span id="roundsUsed">0</span> rounds</div>
       </div>
 
+      <!-- Regulation Courses Only Handicap -->
+      <div class="handicap-display regulation-only">
+        <div>Current Handicap Index - Regulation Courses Only</div>
+        <!-- This number gets updated by JavaScript -->
+        <div class="handicap-number" id="regulationHandicapDisplay">--</div>
+        <div>Based on <span id="regulationRoundsUsed">0</span> rounds</div>
+      </div>
+
       <!-- SECTION 3: Statistics grid showing golf stats -->
+      <h3>All Courses Statistics</h3>
       <div class="stats-grid">
         <!-- Total number of rounds played -->
         <div class="stat-card">
@@ -126,6 +136,34 @@
         <!-- Trend showing if recent scores are improving -->
         <div class="stat-card">
           <div class="stat-value" id="recentTrend">--</div>
+          <div class="stat-label">Recent Trend</div>
+        </div>
+      </div>
+
+      <!-- Regulation Courses Only Statistics -->
+      <h3>Regulation Courses Only Statistics</h3>
+      <div class="stats-grid">
+        <!-- Total number of regulation rounds played -->
+        <div class="stat-card">
+          <div class="stat-value" id="regulationTotalRounds">0</div>
+          <div class="stat-label">Total Rounds</div>
+        </div>
+
+        <!-- Average score across regulation rounds -->
+        <div class="stat-card">
+          <div class="stat-value" id="regulationAvgScore">--</div>
+          <div class="stat-label">Average Score</div>
+        </div>
+
+        <!-- Best (lowest) score on regulation courses -->
+        <div class="stat-card">
+          <div class="stat-value" id="regulationBestScore">--</div>
+          <div class="stat-label">Best Score</div>
+        </div>
+
+        <!-- Trend showing if recent regulation scores are improving -->
+        <div class="stat-card">
+          <div class="stat-value" id="regulationRecentTrend">--</div>
           <div class="stat-label">Recent Trend</div>
         </div>
       </div>

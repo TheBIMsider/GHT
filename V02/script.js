@@ -347,29 +347,43 @@ async function loadRounds() {
 /**
  * CALCULATE HANDICAP USING OFFICIAL USGA METHOD
  * This function implements the real handicap calculation rules
+ * @param {boolean} regulationOnly - If true, only use regulation courses for calculation
  * @returns {Object|null} Object with handicap and rounds used, or null if no rounds
  */
-function calculateHandicap() {
+function calculateHandicap(regulationOnly = false) {
   // CAN'T CALCULATE WITHOUT ROUNDS
   if (rounds.length === 0) return null;
 
   // FILTER TO ONLY ROUNDS INCLUDED IN HANDICAP
-  const handicapRounds = rounds.filter((round) => round.includeInHandicap);
+  let handicapRounds = rounds.filter((round) => round.includeInHandicap);
 
+  // ADDITIONAL FILTER for regulation courses only if requested
+  // This allows us to calculate separate handicaps for:
+  // - All course types (regulationOnly = false)
+  // - Regulation courses only (regulationOnly = true)
+  if (regulationOnly) {
+    handicapRounds = handicapRounds.filter(
+      (round) => round.courseType === 'regulation'
+    );
+  }
+
+  // DEBUG LOG to track what we're calculating
   console.log(
-    `Calculating handicap with ${handicapRounds.length} rounds (filtered from ${rounds.length} total rounds)`
+    `Calculating handicap with ${handicapRounds.length} rounds (regulation only: ${regulationOnly})`
   );
 
+  // CAN'T CALCULATE if no qualifying rounds found
   if (handicapRounds.length === 0) return null;
 
   // SORT BY DIFFERENTIAL (best scores first)
   // We use the best differentials, not just recent scores
+  // This is a key part of the USGA handicap system
   const sortedRounds = [...handicapRounds].sort(
     (a, b) => a.differential - b.differential
   );
 
   // DETERMINE HOW MANY ROUNDS TO USE based on handicap rounds played
-  // This follows official USGA guidelines
+  // This follows official USGA guidelines for handicap calculation
   let roundsToUse;
   if (handicapRounds.length >= 20) {
     roundsToUse = 8; // Use best 8 of 20+ rounds
@@ -382,6 +396,7 @@ function calculateHandicap() {
   }
 
   // CALCULATE AVERAGE of the best differentials
+  // Take only the number of rounds determined above
   const bestDifferentials = sortedRounds.slice(0, roundsToUse);
   const avgDifferential =
     bestDifferentials.reduce((sum, round) => sum + round.differential, 0) /
@@ -389,6 +404,7 @@ function calculateHandicap() {
 
   // APPLY 96% FACTOR (official USGA rule)
   // This slightly reduces the handicap to encourage improvement
+  // and accounts for the fact that players don't always play their best
   return {
     handicap: avgDifferential * 0.96,
     roundsUsed: roundsToUse,
@@ -613,41 +629,72 @@ function updateSortIndicators() {
 }
 
 /**
- * UPDATE HANDICAP DISPLAY
- * Updates the large handicap number and rounds used count
+ * UPDATE HANDICAP DISPLAYS (BOTH ALL COURSES AND REGULATION ONLY)
+ * Updates both handicap numbers and rounds used counts
  */
 function updateHandicapDisplay() {
-  // CALCULATE CURRENT HANDICAP
-  const handicapResult = calculateHandicap();
+  // CALCULATE OVERALL HANDICAP (all course types)
+  const overallHandicapResult = calculateHandicap(false);
 
-  // GET THE DISPLAY ELEMENTS
+  // GET THE OVERALL DISPLAY ELEMENTS
   const handicapDisplay = document.getElementById('handicapDisplay');
   const roundsUsed = document.getElementById('roundsUsed');
 
-  if (handicapResult) {
-    // SHOW HANDICAP rounded to 1 decimal place
-    handicapDisplay.textContent = handicapResult.handicap.toFixed(1);
-    roundsUsed.textContent = `${handicapResult.roundsUsed} of ${handicapResult.totalHandicapRounds} eligible`;
+  if (overallHandicapResult) {
+    // SHOW OVERALL HANDICAP rounded to 1 decimal place
+    handicapDisplay.textContent = overallHandicapResult.handicap.toFixed(1);
+    roundsUsed.textContent = `${overallHandicapResult.roundsUsed} of ${overallHandicapResult.totalHandicapRounds} eligible`;
   } else {
     // SHOW PLACEHOLDER if no rounds
     handicapDisplay.textContent = '--';
     roundsUsed.textContent = '0';
   }
+
+  // CALCULATE REGULATION-ONLY HANDICAP
+  const regulationHandicapResult = calculateHandicap(true);
+
+  // GET THE REGULATION DISPLAY ELEMENTS
+  const regulationHandicapDisplay = document.getElementById(
+    'regulationHandicapDisplay'
+  );
+  const regulationRoundsUsed = document.getElementById('regulationRoundsUsed');
+
+  if (regulationHandicapResult) {
+    // SHOW REGULATION HANDICAP rounded to 1 decimal place
+    regulationHandicapDisplay.textContent =
+      regulationHandicapResult.handicap.toFixed(1);
+    regulationRoundsUsed.textContent = `${regulationHandicapResult.roundsUsed} of ${regulationHandicapResult.totalHandicapRounds} eligible`;
+  } else {
+    // SHOW PLACEHOLDER if no regulation rounds
+    regulationHandicapDisplay.textContent = '--';
+    regulationRoundsUsed.textContent = '0';
+  }
 }
 
 /**
- * UPDATE STATISTICS CARDS
- * Calculates and displays various golf statistics
- * ✅ FIX: Now only uses rounds included in handicap calculation
+ * UPDATE STATISTICS CARDS (BOTH ALL COURSES AND REGULATION ONLY)
+ * Calculates and displays various golf statistics for both categories
  */
 function updateStats() {
+  // UPDATE ALL COURSES STATISTICS
+  updateAllCoursesStats();
+
+  // UPDATE REGULATION ONLY STATISTICS
+  updateRegulationStats();
+}
+
+/**
+ * UPDATE ALL COURSES STATISTICS
+ * Original statistics function for all course types
+ */
+function updateAllCoursesStats() {
   // GET ALL THE STATISTIC DISPLAY ELEMENTS
   const totalRounds = document.getElementById('totalRounds');
   const avgScore = document.getElementById('avgScore');
   const bestScore = document.getElementById('bestScore');
   const recentTrend = document.getElementById('recentTrend');
 
-  // ✅ FIX: Filter to only rounds included in handicap
+  // ✅ FILTER to only rounds included in handicap
   const includedRounds = rounds.filter((round) => round.includeInHandicap);
 
   // TOTAL ROUNDS now shows only included rounds
@@ -687,6 +734,66 @@ function updateStats() {
     avgScore.textContent = '--';
     bestScore.textContent = '--';
     recentTrend.textContent = '--';
+  }
+}
+
+/**
+ * UPDATE REGULATION COURSES ONLY STATISTICS
+ * Statistics function for regulation courses only
+ */
+function updateRegulationStats() {
+  // GET ALL THE REGULATION STATISTIC DISPLAY ELEMENTS
+  const regulationTotalRounds = document.getElementById(
+    'regulationTotalRounds'
+  );
+  const regulationAvgScore = document.getElementById('regulationAvgScore');
+  const regulationBestScore = document.getElementById('regulationBestScore');
+  const regulationRecentTrend = document.getElementById(
+    'regulationRecentTrend'
+  );
+
+  // FILTER to only regulation rounds included in handicap
+  const regulationRounds = rounds.filter(
+    (round) => round.includeInHandicap && round.courseType === 'regulation'
+  );
+
+  // TOTAL REGULATION ROUNDS
+  regulationTotalRounds.textContent = regulationRounds.length;
+
+  if (regulationRounds.length > 0) {
+    // AVERAGE SCORE (using 18-hole equivalent scores from regulation rounds only)
+    const avgScoreValue =
+      regulationRounds.reduce((sum, round) => sum + round.adjScore, 0) /
+      regulationRounds.length;
+    regulationAvgScore.textContent = avgScoreValue.toFixed(1);
+
+    // BEST SCORE (lowest 18-hole equivalent from regulation rounds only)
+    const bestScoreValue = Math.min(
+      ...regulationRounds.map((round) => round.adjScore)
+    );
+    regulationBestScore.textContent = bestScoreValue;
+
+    // RECENT TREND (compares last 5 regulation rounds vs previous 5 regulation rounds)
+    if (regulationRounds.length >= 10) {
+      const recent5 = regulationRounds.slice(0, 5); // Most recent 5 regulation rounds
+      const previous5 = regulationRounds.slice(5, 10); // Previous 5 regulation rounds
+      const recentAvg =
+        recent5.reduce((sum, round) => sum + round.adjScore, 0) / 5;
+      const previousAvg =
+        previous5.reduce((sum, round) => sum + round.adjScore, 0) / 5;
+      const trend = recentAvg - previousAvg; // Positive = getting worse, negative = improving
+
+      // DISPLAY TREND with + or - sign
+      regulationRecentTrend.textContent =
+        trend > 0 ? `+${trend.toFixed(1)}` : trend.toFixed(1);
+    } else {
+      regulationRecentTrend.textContent = '--'; // Not enough regulation rounds for trend
+    }
+  } else {
+    // NO REGULATION ROUNDS - show placeholders
+    regulationAvgScore.textContent = '--';
+    regulationBestScore.textContent = '--';
+    regulationRecentTrend.textContent = '--';
   }
 }
 

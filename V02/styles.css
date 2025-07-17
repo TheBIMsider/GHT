@@ -349,6 +349,31 @@ tr:hover {
 }
 
 /* ========================================
+   8. REGULATION-ONLY HANDICAP STYLING
+   ======================================== */
+
+/* Regulation courses only handicap display */
+.regulation-only {
+  background: linear-gradient(
+    135deg,
+    #1e3a3a,
+    #2c5530
+  ); /* Slightly different gradient */
+  border: 2px solid #4a7c59; /* Green border to distinguish */
+  margin-top: 10px; /* Smaller gap between displays */
+}
+
+/* Section headings for statistics */
+h3 {
+  color: #2c5530; /* Dark green color */
+  border-bottom: 1px solid #4a7c59; /* Thinner green underline */
+  padding-bottom: 5px; /* Less space than h2 */
+  margin-top: 25px; /* Space above heading */
+  margin-bottom: 15px; /* Space below heading */
+  font-size: 1.2em; /* Smaller than h2 */
+}
+
+/* ========================================
    END OF CSS FILE
    
    TROUBLESHOOTING TIPS:
