@@ -10,6 +10,7 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 
 ## ✨ Features
 
+- **Dual Handicap Tracking** - Calculate handicaps for both "All Courses" and "Regulation Courses Only"
 - **Official USGA Handicap Calculation** - Follows current USGA rules for handicap index calculation
 - **9-Hole and 18-Hole Support** - Automatically converts 9-hole scores to 18-hole equivalents
 - **Cloud Data Storage** - Saves all rounds to Google Sheets via SheetDB API
@@ -33,12 +34,25 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 
 1. **Add Rounds**: Enter your golf round details including date, course, score, par, course rating, and slope
 2. **Automatic Calculations**: The app calculates score differentials and converts 9-hole rounds to 18-hole equivalents
-3. **USGA Handicap**: Uses official USGA method to calculate your handicap index from your best differentials
-4. **Data Persistence**: All data is automatically saved to Google Sheets and synced across devices
+3. **Dual USGA Handicaps**: Uses official USGA method to calculate both "All Courses" and "Regulation Only" handicap indexes
+4. **Separate Statistics**: Track performance across all course types or focus on regulation courses only
+5. **Data Persistence**: All data is automatically saved to Google Sheets and synced across devices
 
 ### Handicap Calculation Method
 
-The app follows official USGA guidelines:
+The app follows official USGA guidelines and provides **two separate handicap calculations**:
+
+**All Courses Handicap:**
+- Includes all course types (regulation, executive, par-3, practice rounds)
+- Uses rounds marked as "Include in Handicap"
+- Perfect for tracking overall playing ability
+
+**Regulation Courses Only Handicap:**
+- Only includes regulation course rounds marked as "Include in Handicap"
+- Follows the same USGA calculation method
+- Ideal for official handicap tracking and tournament play
+
+**Calculation Rules for Both:**
 - Uses the best differentials from your rounds (not just recent scores)
 - 20+ rounds: Uses best 8 differentials
 - 10-19 rounds: Uses best 40% of differentials  
@@ -109,7 +123,13 @@ Your Google Sheet should have these columns:
 
 - **Course Rating & Slope**: Find these on the course scorecard or website - they're essential for accurate handicap calculation
 - **9-Hole Rounds**: Enter the actual 9-hole score and par; the app automatically doubles them for handicap purposes
-- **Course Types**: Use "practice" for casual rounds you don't want in your official handicap
+- **Course Types**: 
+  - Use "Regulation" for standard 18-hole courses (counts toward both handicaps)
+  - Use "Executive" for shorter courses (counts only toward All Courses handicap)
+  - Use "Practice" for casual rounds you don't want in either handicap
+- **Dual Handicap System**: 
+  - "All Courses" includes every round type for overall performance tracking
+  - "Regulation Only" provides your official handicap for tournament play
 - **Sorting**: Click any column header in the Round History table to sort your data - click again to reverse the order
 - **Visual Sort Indicators**: Look for ↑↓ arrows in column headers to see which column is currently sorted
 - **Data Backup**: Your data is automatically saved to Google Sheets, providing cloud backup and sync across devices
@@ -170,6 +190,8 @@ golf-handicap-tracker/
 - **Handicap Inclusion Control**: Choose which rounds count toward your handicap
 - **Sortable Tables**: Click column headers to sort round history by any field
 - **Real-time Updates**: Statistics update instantly when toggling round inclusion
+- **Dual Handicap System**: Separate tracking for "All Courses" vs "Regulation Only"
+- **Dual Statistics**: Independent stats for all courses and regulation courses only
 
 ### [Version 1.0](https://github.com/TheBIMsider/GHT/tree/main/V01) - Browser Storage
 - **Local Storage Only**: Data stored in browser's localStorage
