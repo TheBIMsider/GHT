@@ -30,7 +30,7 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 
 ## 📱 Screenshot
 
-<img width="959" height="1070" alt="GHT" src="https://github.com/user-attachments/assets/6bffb5b5-44b6-4af8-a66c-b6a8c7118c5c" />
+<img width="960" height="1071" alt="GHT" src="https://github.com/user-attachments/assets/718f6000-3ee7-4e54-8b40-fa86a5d22b7f" />
 
 ## 🏗️ How It Works
 
