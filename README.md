@@ -23,7 +23,7 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 
 ## 🚀 Live Demo
 
-[View Live App - Version 2](https://thebimsider.github.io/GHT/V02/)
+[View Live App](https://thebimsider.github.io/GHT/V02/)
 
 ## 📱 Screenshot
 
