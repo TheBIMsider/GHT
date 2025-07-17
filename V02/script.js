@@ -244,7 +244,7 @@ async function loadRoundsFromSheet() {
                 slope: parseInt(round.slope) || 0,            // Convert to integer, default to 0
                 differential: parseFloat(round.differential) || 0,  // Convert to decimal - CRITICAL for handicap calc
                 courseType: round.courseType || 'regulation', // Default to regulation if missing
-                includeInHandicap: round.includeInHandicap === 'true' || round.includeInHandicap === true || !round.hasOwnProperty('includeInHandicap') // Default to true for existing rounds
+                includeInHandicap: round.includeInHandicap === 'false' ? false : true // Default to TRUE (include) unless explicitly set to false
             };
             
             // LOG EACH ROUND for debugging
