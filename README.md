@@ -2,7 +2,7 @@
 
 A simple, web-based golf handicap calculator that helps golfers track their rounds and calculate their USGA Handicap Index. Built with vanilla HTML, CSS, and JavaScript, designed to be hosted on GitHub Pages with data storage via Google Sheets.
 
-> **📋 Demo Notice**: This live demo uses dummy golf data for demonstration purposes. To track your own golf rounds, you'll need to set up your own Google Sheets connection following the instructions below.
+> **📋 Demo Notice**: This live demo uses dummy golf data for demonstration purposes. To track your own golf rounds, fork this repository and follow the setup instructions below to connect your own Google Sheets.
 
 ## 🤖 AI-Powered Development
 
