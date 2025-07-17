@@ -26,7 +26,7 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 
 ## 📱 Screenshots
 
-*Add screenshots of your app here*
+<img width="1920" height="945" alt="GHT" src="https://github.com/user-attachments/assets/76dc8377-e5cd-41ff-bd3c-141e0423e80d" />
 
 ## 🏗️ How It Works
 
