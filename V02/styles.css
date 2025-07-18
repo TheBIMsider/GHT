@@ -374,6 +374,130 @@ h3 {
 }
 
 /* ========================================
+   9. MOBILE TABLE IMPROVEMENTS
+   ======================================== */
+
+/* Table wrapper for horizontal scrolling on mobile */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  position: relative;
+}
+
+/* Force scrollbars to be visible */
+.table-wrapper::-webkit-scrollbar {
+  height: 12px; /* Make scrollbar taller/more visible */
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray track */
+  border-radius: 6px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #4a7c59; /* Green thumb matching app theme */
+  border-radius: 6px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #2c5530; /* Darker green on hover */
+}
+
+/* Add a subtle scroll hint for mobile users */
+.table-wrapper::after {
+  content: '← Scroll to see more →';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: rgba(74, 124, 89, 0.9);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+/* Show scroll hint on mobile when table is wide */
+@media (max-width: 768px) {
+  .table-wrapper::after {
+    opacity: 1;
+    animation: fadeInOut 4s ease-in-out;
+  }
+}
+
+/* Animation for the scroll hint */
+@keyframes fadeInOut {
+  0%,
+  20% {
+    opacity: 1;
+  }
+  80%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Ensure table maintains minimum width on mobile */
+#roundsTable {
+  min-width: 800px; /* Minimum width to prevent cramping */
+  width: 100%;
+}
+
+/* Mobile-specific table improvements */
+@media (max-width: 768px) {
+  .table-wrapper {
+    margin: 10px -15px; /* Extend to edge of container on mobile */
+    border-radius: 0; /* Remove border radius on mobile for full width */
+  }
+
+  /* Slightly smaller text on mobile but still readable */
+  #roundsTable {
+    font-size: 13px;
+    min-width: 900px; /* Slightly wider min-width on mobile for better spacing */
+  }
+
+  /* Adjust cell padding for mobile */
+  #roundsTable th,
+  #roundsTable td {
+    padding: 10px 8px; /* Slightly less horizontal padding */
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+
+  /* Make buttons slightly smaller on mobile */
+  .toggle-handicap-btn,
+  .delete-btn {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+}
+
+/* Very small phones - even more compact */
+@media (max-width: 480px) {
+  #roundsTable {
+    font-size: 12px;
+    min-width: 850px;
+  }
+
+  #roundsTable th,
+  #roundsTable td {
+    padding: 8px 6px;
+  }
+
+  .toggle-handicap-btn,
+  .delete-btn {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+}
+
+/* ========================================
    END OF CSS FILE
    
    TROUBLESHOOTING TIPS:

@@ -170,31 +170,33 @@
 
       <!-- SECTION 4: Table showing all previous rounds -->
       <h2>Round History</h2>
-      <table id="roundsTable">
-        <!-- Table header row -->
-        <thead>
-          <tr>
-            <th onclick="sortTable('date')" class="sortable">Date</th>
-            <th onclick="sortTable('course')" class="sortable">Course</th>
-            <th onclick="sortTable('type')" class="sortable">Type</th>
-            <th onclick="sortTable('holes')" class="sortable">Holes</th>
-            <th onclick="sortTable('score')" class="sortable">Score</th>
-            <th onclick="sortTable('par')" class="sortable">Par</th>
-            <th onclick="sortTable('adjScore')" class="sortable">
-              18-Hole Score
-            </th>
-            <th onclick="sortTable('differential')" class="sortable">
-              Differential
-            </th>
-            <th onclick="sortTable('includeInHandicap')" class="sortable">
-              In Handicap
-            </th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <!-- Table body gets filled by JavaScript -->
-        <tbody id="roundsBody"></tbody>
-      </table>
+      <div class="table-wrapper">
+        <table id="roundsTable">
+          <!-- Table header row -->
+          <thead>
+            <tr>
+              <th onclick="sortTable('date')" class="sortable">Date</th>
+              <th onclick="sortTable('course')" class="sortable">Course</th>
+              <th onclick="sortTable('type')" class="sortable">Type</th>
+              <th onclick="sortTable('holes')" class="sortable">Holes</th>
+              <th onclick="sortTable('score')" class="sortable">Score</th>
+              <th onclick="sortTable('par')" class="sortable">Par</th>
+              <th onclick="sortTable('adjScore')" class="sortable">
+                18-Hole Score
+              </th>
+              <th onclick="sortTable('differential')" class="sortable">
+                Differential
+              </th>
+              <th onclick="sortTable('includeInHandicap')" class="sortable">
+                In Handicap
+              </th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <!-- Table body gets filled by JavaScript -->
+          <tbody id="roundsBody"></tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Link to external JavaScript file - must be at bottom so HTML loads first -->
