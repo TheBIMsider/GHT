@@ -462,12 +462,71 @@ tr:hover {
 }
 
 /* ========================================
-   REMOVE SCROLL HINT FIX
+   COMPREHENSIVE SCROLL HINT REMOVAL
+   ========================================
+   
+   Add this to the very end of your CSS file to completely
+   remove all scroll hints from everywhere
+   
    ======================================== */
 
-.table-wrapper::after {
+/* Remove all possible scroll hint pseudo-elements */
+.table-wrapper::after,
+.table-wrapper::before,
+#roundsTable::after,
+#roundsTable::before,
+table::after,
+table::before {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+}
+
+/* Remove any elements that contain scroll hint text */
+*:contains('Scroll to see more'),
+*:contains('← Scroll to see more →') {
   display: none !important;
 }
+
+/* Target by content - this catches pseudo-elements with that specific text */
+*::after,
+*::before {
+  content: none !important;
+}
+
+/* More specific targeting */
+.table-wrapper *::after,
+.table-wrapper *::before {
+  display: none !important;
+}
+
+/* Remove any positioned elements that might be the hint */
+.table-wrapper > *[style*='position: absolute'],
+.table-wrapper *[style*='← Scroll'] {
+  display: none !important;
+}
+
+/* Nuclear option - remove all pseudo-elements from table area */
+section:last-child *::after,
+section:last-child *::before {
+  display: none !important;
+}
+
+/* ========================================
+   ALTERNATIVE APPROACH - FIND AND REPLACE
+   ========================================
+   
+   If the above doesn't work, the hint might be in
+   the JavaScript. Look for this text in script.js:
+   
+   "← Scroll to see more →"
+   
+   And either:
+   1. Delete those lines
+   2. Comment them out with //
+   3. Change the content to an empty string: content: '';
+   
+   ======================================== */
 
 /* ========================================
    END OF CSS FILE
