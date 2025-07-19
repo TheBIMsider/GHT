@@ -1,4 +1,5 @@
-# 🏌️‍♂️ Golf Handicap Tracker
+# 🏌️‍♂️ Par-Tracker 42 🤖
+## *The Ultimate Answer to Your Golf Score Tracking Needs*
 
 A simple, web-based golf handicap calculator that helps golfers track their rounds and calculate their USGA Handicap Index. Built with vanilla HTML, CSS, and JavaScript, designed to be hosted on GitHub Pages with data storage via Google Sheets.
 
@@ -6,9 +7,9 @@ A simple, web-based golf handicap calculator that helps golfers track their roun
 
 ## 🤖 AI-Powered Development
 
-This project was created as a "vibe coding" session using **Claude Sonnet 4** AI assistance, with human guidance and golf expertise provided by **Carl Storms** aka ["The BIMsider"](https://bio.link/thebimsider). Carl's unfortunately high golf scores serve as the "dummy data" in the demo - though we assure you, those scores are very real! 🏌️‍♂️⛳
+Par-Tracker 42 was created as a "vibe coding" session using **Claude Sonnet 4** AI assistance, with human guidance and golf expertise provided by **Carl Storms** aka ["The BIMsider"](https://bio.link/thebimsider). Carl's unfortunately high golf scores serve as the "dummy data" in the demo - though we assure you, those scores are very real! 🏌️‍♂️⛳
 
-*A collaboration between human creativity and AI efficiency - proving that even bad golfers can build good apps (and that maybe Carl is the real dummy here, at least where golf scores are concerned, not the data).*
+*A collaboration between human creativity and AI efficiency - proving that even bad golfers can build good apps. And yes, "42" is indeed the ultimate answer... to golf score tracking!* 🤖
 
 ## ✨ Features
 
@@ -31,7 +32,7 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 
 [View Live App](https://thebimsider.github.io/GHT/V021/) *(Uses dummy data for demonstration)*
 
-## 📱 Screenshot
+## 📱 Screenshots
 
 <img width="960" height="1071" alt="GHT" src="https://github.com/user-attachments/assets/718f6000-3ee7-4e54-8b40-fa86a5d22b7f" />
 
