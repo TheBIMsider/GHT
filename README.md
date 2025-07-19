@@ -85,14 +85,14 @@ The app follows official USGA guidelines and provides **two separate handicap ca
 4. **Enable GitHub Pages**:
    - Go to repository Settings → Pages
    - Select "Deploy from a branch" → main branch
-   - Your app will be live at `https://yourusername.github.io/golf-handicap-tracker`
+   - Your app will be live at `https://yourusername.github.io/par-tracker-42`
 
 ### Option 2: Local Development
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/golf-handicap-tracker.git
-   cd golf-handicap-tracker
+   git clone https://github.com/yourusername/par-tracker-42.git
+   cd par-tracker-42
    ```
 
 2. Set up SheetDB (same as above)
@@ -175,7 +175,7 @@ Edit the `calculateHandicap()` function to implement different handicap systems.
 ## 📁 File Structure
 
 ```
-golf-handicap-tracker/
+par-tracker-42/
 ├── index.html          # Main HTML structure with semantic markup
 ├── styles.css          # All styling, responsive design, and compact table layout
 ├── script.js           # JavaScript functionality, API calls, and modern error handling
@@ -212,7 +212,7 @@ golf-handicap-tracker/
 
 ## 📋 Version History
 
-### [Version 2.1](https://thebimsider.github.io/GHT/V021/) (Current) - Enhanced with Tees Tracking
+### [Version 2.1](https://thebimsider.github.io/GHT/V02/) (Current) - Enhanced with Tees Tracking
 - **Tees Tracking**: Record which tee boxes you played from for better round documentation
 - **Compact Table Design**: Optimized table layout that fits laptop screens without horizontal scrolling
 - **Improved Column Headers**: Shortened headers ("18-Hole", "Diff", "Handicap") for better space utilization
@@ -263,6 +263,7 @@ This project is open source and available under the [BSD 3-Clause "New" or "Revi
 - Thanks to [SheetDB](https://sheetdb.io/) for providing the Google Sheets API
 - Inspired by the need for a simple, free golf handicap tracker
 - Enhanced with modern web development practices and responsive design
+- Named in honor of Douglas Adams' "The Hitchhiker's Guide to the Galaxy" - because 42 truly is the ultimate answer... to your golf score tracking needs! 🤖
 
 ---
 
