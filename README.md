@@ -212,7 +212,7 @@ par-tracker-42/
 
 ## 📋 Version History
 
-### [Version 2.1](https://thebimsider.github.io/GHT/V02/) (Current) - Enhanced with Tees Tracking
+### [Version 2.1](https://thebimsider.github.io/GHT/V021/) (Current) - Enhanced with Tees Tracking
 - **Tees Tracking**: Record which tee boxes you played from for better round documentation
 - **Compact Table Design**: Optimized table layout that fits laptop screens without horizontal scrolling
 - **Improved Column Headers**: Shortened headers ("18-Hole", "Diff", "Handicap") for better space utilization
