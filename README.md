@@ -34,7 +34,7 @@ Par-Tracker 42 was created as a "vibe coding" session using **Claude Sonnet 4** 
 
 ## 📱 Screenshots
 
-<img width="960" height="1071" alt="GHT" src="https://github.com/user-attachments/assets/718f6000-3ee7-4e54-8b40-fa86a5d22b7f" />
+<img width="962" height="1055" alt="GHT" src="https://github.com/user-attachments/assets/d98c27d4-86d6-4bf6-82c8-853383ccfa61" />
 
 ## 🏗️ How It Works
 
