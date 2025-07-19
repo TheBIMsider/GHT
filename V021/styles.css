@@ -181,17 +181,39 @@ table {
 }
 
 /* Optimized column widths for laptop screens */
-#roundsTable th:nth-child(1) { width: 9%; }   /* Date */
-#roundsTable th:nth-child(2) { width: 18%; }  /* Course */
-#roundsTable th:nth-child(3) { width: 7%; }   /* Tees */
-#roundsTable th:nth-child(4) { width: 8%; }   /* Type */
-#roundsTable th:nth-child(5) { width: 6%; }   /* Holes */
-#roundsTable th:nth-child(6) { width: 6%; }   /* Score */
-#roundsTable th:nth-child(7) { width: 6%; }   /* Par */
-#roundsTable th:nth-child(8) { width: 8%; }   /* 18-Hole */
-#roundsTable th:nth-child(9) { width: 7%; }   /* Diff */
-#roundsTable th:nth-child(10) { width: 9%; }  /* Handicap */
-#roundsTable th:nth-child(11) { width: 8%; }  /* Action */
+#roundsTable th:nth-child(1) {
+  width: 9%;
+} /* Date */
+#roundsTable th:nth-child(2) {
+  width: 18%;
+} /* Course */
+#roundsTable th:nth-child(3) {
+  width: 7%;
+} /* Tees */
+#roundsTable th:nth-child(4) {
+  width: 8%;
+} /* Type */
+#roundsTable th:nth-child(5) {
+  width: 6%;
+} /* Holes */
+#roundsTable th:nth-child(6) {
+  width: 6%;
+} /* Score */
+#roundsTable th:nth-child(7) {
+  width: 6%;
+} /* Par */
+#roundsTable th:nth-child(8) {
+  width: 8%;
+} /* 18-Hole */
+#roundsTable th:nth-child(9) {
+  width: 7%;
+} /* Diff */
+#roundsTable th:nth-child(10) {
+  width: 9%;
+} /* Handicap */
+#roundsTable th:nth-child(11) {
+  width: 8%;
+} /* Action */
 
 th,
 td {
@@ -318,13 +340,13 @@ tr:hover {
   table {
     font-size: 14px;
   }
-  
+
   th,
   td {
     padding: 10px 6px;
     font-size: 14px;
   }
-  
+
   .table-wrapper {
     overflow-x: visible;
   }
@@ -358,7 +380,7 @@ tr:hover {
     border-radius: 0;
     overflow-x: auto;
   }
-  
+
   #roundsTable {
     min-width: 800px;
   }
@@ -378,11 +400,11 @@ tr:hover {
   .container {
     padding: 15px;
   }
-  
+
   table {
     font-size: 12px;
   }
-  
+
   #roundsTable {
     min-width: 850px;
   }
@@ -429,8 +451,22 @@ tr:hover {
 }
 
 @keyframes fadeInOut {
-  0%, 20% { opacity: 1; }
-  80%, 100% { opacity: 0; }
+  0%,
+  20% {
+    opacity: 1;
+  }
+  80%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   REMOVE SCROLL HINT FIX
+   ======================================== */
+
+.table-wrapper::after {
+  display: none !important;
 }
 
 /* ========================================
