@@ -32,7 +32,7 @@ Par-Tracker 42 was created as a "vibe coding" session using **Claude Sonnet 4** 
 
 [View Live App](https://thebimsider.github.io/GHT/V021/) *(Uses dummy data for demonstration)*
 
-## 📱 Screenshots
+## 📱 Screenshot
 
 <img width="958" height="1055" alt="GHT" src="https://github.com/user-attachments/assets/c89d7ef7-1bf0-463f-9b73-757887bdaa0f" />
 
