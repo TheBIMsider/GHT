@@ -14,19 +14,22 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 
 - **Dual Handicap Tracking** - Calculate handicaps for both "All Courses" and "Regulation Courses Only"
 - **Official USGA Handicap Calculation** - Follows current USGA rules for handicap index calculation
+- **Tees Tracking** - Record which tee boxes you played from (Blue, White, Red, etc.) for better record keeping
 - **9-Hole and 18-Hole Support** - Automatically converts 9-hole scores to 18-hole equivalents
 - **Cloud Data Storage** - Saves all rounds to Google Sheets via SheetDB API
 - **Round Management** - Add, view, and delete golf rounds with detailed course information
-- **Sortable Round History** - Click any column header to sort your rounds (date, course, type, score, etc.)
-- **Statistics Dashboard** - Track total rounds, average score, best score, and recent trends
+- **Easy Error Correction** - Simply delete and re-add rounds if you enter incorrect data
+- **Sortable Round History** - Click any column header to sort your rounds (date, course, tees, type, score, etc.)
+- **Compact Table Design** - Optimized to fit laptop screens without horizontal scrolling
+- **Dual Statistics Dashboard** - Separate stats for all courses vs regulation courses only
 - **Course Type Classification** - Support for regulation, executive, par-3, and practice rounds
 - **Handicap Inclusion Control** - Choose which rounds to include/exclude from handicap calculation
 - **Mobile Responsive** - Works perfectly on desktop, tablet, and mobile devices
 - **No Installation Required** - Runs entirely in the browser
 
-## 🚀 Live Demo 
+## 🚀 Live Demo
 
-[View Live App](https://thebimsider.github.io/GHT/V02/) *(Uses dummy data for demonstration)*
+[View Live App](https://thebimsider.github.io/GHT/V021/) *(Uses dummy data for demonstration)*
 
 ## 📱 Screenshot
 
@@ -34,7 +37,7 @@ This project was created as a "vibe coding" session using **Claude Sonnet 4** AI
 
 ## 🏗️ How It Works
 
-1. **Add Rounds**: Enter your golf round details including date, course, score, par, course rating, and slope
+1. **Add Rounds**: Enter your golf round details including date, course, tees played, score, par, course rating, and slope
 2. **Automatic Calculations**: The app calculates score differentials and converts 9-hole rounds to 18-hole equivalents
 3. **Dual USGA Handicaps**: Uses official USGA method to calculate both "All Courses" and "Regulation Only" handicap indexes
 4. **Separate Statistics**: Track performance across all course types or focus on regulation courses only
@@ -71,7 +74,7 @@ The app follows official USGA guidelines and provides **two separate handicap ca
    - Go to [SheetDB.io](https://sheetdb.io/) and create a free account
    - Create a new Google Sheet with these column headers:
      ```
-     id | date | course | courseType | includeInHandicap | holes | score | par | adjScore | rating | slope | differential
+     id | date | course | tees | courseType | includeInHandicap | holes | score | par | adjScore | rating | slope | differential
      ```
    - Connect your sheet to SheetDB and get your API URL
 3. **Update the API URL** in `script.js` (line ~32):
@@ -112,13 +115,14 @@ The app follows official USGA guidelines and provides **two separate handicap ca
 
 ## 📊 Google Sheets Setup
 
-Your Google Sheet should have these columns:
+Your Google Sheet should have these columns in this exact order:
 
 | Column | Description | Example |
 |--------|-------------|---------|
 | id | Unique identifier | 1672531200000 |
 | date | Date played | 2024-01-15 |
 | course | Course name | Pebble Beach |
+| tees | Tees played from | Blue |
 | courseType | Type of course | regulation |
 | includeInHandicap | Include in handicap | true |
 | holes | Holes played | 18 |
@@ -129,19 +133,24 @@ Your Google Sheet should have these columns:
 | slope | Slope rating | 131 |
 | differential | Calculated differential | 10.4 |
 
+**⚠️ Important**: The "tees" column must be added as column D (after "course") for the app to work correctly.
+
 ## 🎯 Usage Tips
 
 - **Course Rating & Slope**: Find these on the course scorecard or website - they're essential for accurate handicap calculation
+- **Tees Information**: Record which tee boxes you played from (e.g., "Blue", "White", "Red", "Gold", "Black", "Mixed") for better tracking
 - **9-Hole Rounds**: Enter the actual 9-hole score and par; the app automatically doubles them for handicap purposes
 - **Course Types**: 
   - Use "Regulation" for standard 18-hole courses (counts toward both handicaps)
   - Use "Executive" for shorter courses (counts only toward All Courses handicap)
   - Use "Practice" for casual rounds you don't want in either handicap
+- **Data Entry Errors**: Made a mistake? Simply delete the round and re-add it with correct information - it's faster and easier than trying to edit
 - **Dual Handicap System**: 
   - "All Courses" includes every round type for overall performance tracking
   - "Regulation Only" provides your official handicap for tournament play
 - **Sorting**: Click any column header in the Round History table to sort your data - click again to reverse the order
 - **Visual Sort Indicators**: Look for ↑↓ arrows in column headers to see which column is currently sorted
+- **Table Navigation**: On laptops, the table is optimized to fit without scrolling. On mobile devices, swipe left/right to view all columns
 - **Data Backup**: Your data is automatically saved to Google Sheets, providing cloud backup and sync across devices
 
 ## 🔧 Customization
@@ -166,9 +175,9 @@ Edit the `calculateHandicap()` function to implement different handicap systems.
 
 ```
 golf-handicap-tracker/
-├── index.html          # Main HTML structure
-├── styles.css          # All styling and responsive design
-├── script.js           # JavaScript functionality and API calls
+├── index.html          # Main HTML structure with semantic markup
+├── styles.css          # All styling, responsive design, and compact table layout
+├── script.js           # JavaScript functionality, API calls, and modern error handling
 └── README.md          # This file
 ```
 
@@ -176,7 +185,8 @@ golf-handicap-tracker/
 
 **Data not saving?**
 - Check that your SheetDB API URL is correct in `script.js`
-- Verify your Google Sheet has the correct column headers
+- Verify your Google Sheet has the correct column headers in the right order
+- Ensure the "tees" column is added as column D
 - Check browser console for error messages
 
 **Handicap calculation seems wrong?**
@@ -184,14 +194,33 @@ golf-handicap-tracker/
 - Verify that rounds are marked as "Include in Handicap"
 - Check that you have enough rounds for calculation (minimum 1)
 
+**Table not displaying properly?**
+- Ensure you're using the latest CSS file with compact table styles
+- Try a hard refresh (Ctrl+F5 or Cmd+Shift+R)
+- Check that all CSS files are loading properly
+
 **App not loading?**
 - Make sure GitHub Pages is enabled in repository settings
 - Check that all files are in the root directory
 - Verify there are no JavaScript errors in browser console
 
+**Made a data entry mistake?**
+- Click the "Delete" button for the incorrect round
+- Use the "Add New Round" form to re-enter with correct information
+- This is faster and more reliable than trying to edit existing data
+
 ## 📋 Version History
 
-### [Version 2.0](https://thebimsider.github.io/GHT/V02/) (Current) - Cloud Storage
+### [Version 2.1](https://thebimsider.github.io/GHT/V021/) (Current) - Enhanced with Tees Tracking
+- **Tees Tracking**: Record which tee boxes you played from for better round documentation
+- **Compact Table Design**: Optimized table layout that fits laptop screens without horizontal scrolling
+- **Improved Column Headers**: Shortened headers ("18-Hole", "Diff", "Handicap") for better space utilization
+- **Enhanced Error Handling**: Better validation and user-friendly error messages
+- **Performance Optimizations**: Faster table updates and improved responsiveness
+- **Modern Code Structure**: Enhanced maintainability with better code organization
+- **Updated Google Sheets Schema**: Added "tees" column to data structure
+
+### [Version 2.0](https://thebimsider.github.io/GHT/V02/) - Cloud Storage
 - **Google Sheets Integration**: All data now stored in Google Sheets via SheetDB API
 - **Cross-Device Sync**: Access your handicap data from any device
 - **Data Persistence**: No more lost data when clearing browser cache
@@ -217,9 +246,11 @@ Contributions are welcome! Please feel free to submit a Pull Request. Some ideas
 
 - Add course database lookup
 - Implement different handicap systems (EGA, etc.)
-- Add data export functionality
+- Add data export functionality (CSV, PDF)
 - Include weather tracking
 - Add playing partner tracking
+- Course photo integration
+- Round notes and comments
 
 ## 📄 License
 
@@ -230,6 +261,7 @@ This project is open source and available under the [BSD 3-Clause "New" or "Revi
 - Built following official USGA Handicap System guidelines
 - Thanks to [SheetDB](https://sheetdb.io/) for providing the Google Sheets API
 - Inspired by the need for a simple, free golf handicap tracker
+- Enhanced with modern web development practices and responsive design
 
 ---
 
