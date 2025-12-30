@@ -1,4 +1,4 @@
-# 🏌️‍♂️ Par-Tracker 42 🤖
+# 🏌️‍♂️ Par-Tracker 42 🤖 <a href="https://github.com/thebimsider/GHT/releases/tag/v2.1.0"><img src="https://img.shields.io/badge/v2.1.0-release-brightgreen" alt="v2.1.0" /></a>
 ## *The Ultimate Answer to Your Golf Score Tracking Needs*
 
 A simple, web-based golf handicap calculator that helps golfers track their rounds and calculate their USGA Handicap Index. Built with vanilla HTML, CSS, and JavaScript, designed to be hosted on GitHub Pages with data storage via Google Sheets.
