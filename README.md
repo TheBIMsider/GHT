@@ -14,7 +14,7 @@ A simple, web-based golf handicap calculator that helps golfers track their roun
 
 ## 🤖 AI-Powered Development
 
-Par-Tracker 42 was created as a "vibe coding" session using **Claude Sonnet 4** AI assistance, with human guidance and golf expertise provided by **Carl Storms** aka ["The BIMsider"](https://bio.link/thebimsider). Carl's unfortunately high golf scores serve as the "dummy data" in the demo - though we assure you, those scores are very real! 🏌️‍♂️⛳
+Par-Tracker 42 was created as a "vibe coding" session using **Claude Sonnet 4** AI assistance, with human guidance and golf expertise provided by **Carl Storms** aka ["The BIMsider"](https://thebimsider.com/links/). Carl's unfortunately high golf scores serve as the "dummy data" in the demo - though we assure you, those scores are very real! 🏌️‍♂️⛳
 
 *A collaboration between human creativity and AI efficiency - proving that even bad golfers can build good apps. And yes, "42" is indeed the ultimate answer... to golf score tracking!* 🤖
 
