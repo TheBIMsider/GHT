@@ -1,0 +1,4 @@
+# Claude Code -- private project context, never commit
+CLAUDE.md
+context/
+.claude/

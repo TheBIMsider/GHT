@@ -1,9 +1,10 @@
 /* ========================================
-   GOLF HANDICAP TRACKER - JAVASCRIPT WITH TEES SUPPORT
+   PAR-TRACKER 42 - GOLF HANDICAP TRACKER
    ========================================
-   
-   Updated to include "Tees Played" field for better golf tracking
-   
+
+   Logs golf rounds to a Google Sheet (via SheetDB) and calculates
+   "All Courses" and "Regulation Only" handicaps from them.
+
    ======================================== */
 
 // ========================================
@@ -61,8 +62,7 @@ function cacheElements() {
     // Form elements
     dateInput: document.getElementById('date'),
     courseInput: document.getElementById('course'),
-    teesInput: document.getElementById('tees'), // NEW: Tees input
-    holesSelect: document.getElementById('holes'),
+    teesInput: document.getElementById('tees'),    holesSelect: document.getElementById('holes'),
     scoreInput: document.getElementById('score'),
     parInput: document.getElementById('par'),
     ratingInput: document.getElementById('rating'),
@@ -92,15 +92,14 @@ function cacheElements() {
 function validateInputs() {
   const date = cachedElements.dateInput.value.trim();
   const course = cachedElements.courseInput.value.trim();
-  const tees = cachedElements.teesInput.value.trim(); // NEW: Validate tees
-  const holes = parseInt(cachedElements.holesSelect.value);
+  const tees = cachedElements.teesInput.value.trim();  const holes = parseInt(cachedElements.holesSelect.value);
   const score = parseInt(cachedElements.scoreInput.value);
   const par = parseInt(cachedElements.parInput.value);
   const rating = parseFloat(cachedElements.ratingInput.value);
   const slope = parseInt(cachedElements.slopeInput.value);
   const courseType = cachedElements.courseTypeSelect.value;
 
-  // UPDATED: Include tees in validation
+  // All fields are required
   if (!date || !course || !tees || !holes || !score || !par || !rating || !slope || !courseType) {
     throw new Error('Please fill in all fields');
   }
@@ -109,8 +108,7 @@ function validateInputs() {
   if (course.length < 2) {
     throw new Error('Course name must be at least 2 characters');
   }
-  if (tees.length < 1) { // NEW: Tees validation
-    throw new Error('Tees played must be specified');
+  if (tees.length < 1) {    throw new Error('Tees played must be specified');
   }
   if (![9, 18].includes(holes)) {
     throw new Error('Holes must be 9 or 18');
@@ -128,7 +126,7 @@ function validateInputs() {
     throw new Error('Slope rating must be between 55 and 155');
   }
 
-  return { date, course, tees, holes, score, par, rating, slope, courseType }; // UPDATED: Include tees
+  return { date, course, tees, holes, score, par, rating, slope, courseType };
 }
 
 async function retryOperation(operation, maxRetries = CONFIG.MAX_RETRIES) {
@@ -175,7 +173,7 @@ async function addRound() {
     const inputs = validateInputs();
     const includeInHandicap = cachedElements.includeHandicapSelect.value === 'true';
 
-    // Original 9-hole conversion logic
+    // 9-hole rounds are doubled to an 18-hole equivalent for the handicap
     let adjScore = inputs.score;
     let adjPar = inputs.par;
 
@@ -184,16 +182,14 @@ async function addRound() {
       adjPar = inputs.par * 2;
     }
 
-    // Original differential calculation
+    // Score differential: (adjusted score - course rating) * 113 / slope
     const differential = ((adjScore - inputs.rating) * 113) / inputs.slope;
 
-    // UPDATED: Include tees in round object
     const round = {
       id: Date.now().toString(),
       date: inputs.date,
       course: inputs.course,
-      tees: inputs.tees, // NEW: Add tees field
-      courseType: inputs.courseType,
+      tees: inputs.tees,      courseType: inputs.courseType,
       includeInHandicap: includeInHandicap,
       holes: inputs.holes,
       score: inputs.score,
@@ -265,11 +261,10 @@ async function loadRoundsFromSheet() {
   const data = await response.json();
 
   if (!data || data.length === 0) {
-    console.log('No rounds found in Google Sheet');
     return [];
   }
 
-  // UPDATED: Include tees in data conversion
+  // Sheet values arrive as strings, so convert them to numbers and booleans
   return data.map((round) => {
     const convertedRound = {
       ...round,
@@ -282,7 +277,7 @@ async function loadRoundsFromSheet() {
       differential: parseFloat(round.differential) || 0,
       courseType: round.courseType || 'regulation',
       includeInHandicap: round.includeInHandicap === 'false' ? false : true,
-      tees: round.tees || '', // NEW: Handle tees field with fallback
+      tees: round.tees || '', // rows saved before v2.1 have no tees
     };
 
     return convertedRound;
@@ -309,8 +304,6 @@ async function loadRounds() {
 
     rounds = await retryOperation(loadRoundsFromSheet);
     rounds.sort((a, b) => new Date(b.date) - new Date(a.date));
-    
-    console.log('Successfully loaded', rounds.length, 'rounds from Google Sheets');
   } catch (error) {
     console.error('Error loading rounds:', error);
     rounds = [];
@@ -320,16 +313,15 @@ async function loadRounds() {
       if (savedRounds) {
         rounds = JSON.parse(savedRounds);
         rounds.sort((a, b) => new Date(b.date) - new Date(a.date));
-        console.log('Loaded rounds from localStorage backup:', rounds.length, 'rounds');
       }
     } catch (localError) {
-      console.log('No local backup available', localError);
+      console.error('No local backup available', localError);
     }
   }
 }
 
 // ========================================
-// HANDICAP CALCULATION (UNCHANGED)
+// HANDICAP CALCULATION
 // ========================================
 
 function calculateHandicap(regulationOnly = false) {
@@ -408,7 +400,6 @@ function updateRoundsTable() {
 
   const fragment = document.createDocumentFragment();
 
-  // UPDATED: Include tees in table row
   rounds.forEach((round) => {
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -454,8 +445,7 @@ function sortTable(column) {
         valueA = (a.course || '').toLowerCase();
         valueB = (b.course || '').toLowerCase();
         break;
-      case 'tees': // NEW: Add tees sorting
-        valueA = (a.tees || '').toLowerCase();
+      case 'tees':        valueA = (a.tees || '').toLowerCase();
         valueB = (b.tees || '').toLowerCase();
         break;
       case 'type':
@@ -510,12 +500,11 @@ function updateSortIndicators() {
     header.classList.remove('sorted-asc', 'sorted-desc');
   });
 
-  // UPDATED: Include tees in column mapping
+  // Maps each sortable field to its column position for the sort arrows
   const columnMap = {
     date: 0,
     course: 1,
-    tees: 2, // NEW: Tees column
-    type: 3,
+    tees: 2,    type: 3,
     holes: 4,
     score: 5,
     par: 6,
@@ -638,8 +627,7 @@ function updateRegulationStats() {
 
 function clearForm() {
   (cachedElements.courseInput || document.getElementById('course')).value = '';
-  (cachedElements.teesInput || document.getElementById('tees')).value = ''; // NEW: Clear tees field
-  (cachedElements.holesSelect || document.getElementById('holes')).value = '';
+  (cachedElements.teesInput || document.getElementById('tees')).value = '';  (cachedElements.holesSelect || document.getElementById('holes')).value = '';
   (cachedElements.scoreInput || document.getElementById('score')).value = '';
   (cachedElements.parInput || document.getElementById('par')).value = '';
   (cachedElements.ratingInput || document.getElementById('rating')).value = '';
@@ -698,28 +686,15 @@ function getCourseTypeDisplay(courseType) {
 }
 
 /* ========================================
-   TEES FIELD IMPLEMENTATION NOTES
+   GOOGLE SHEET COLUMN ORDER
    ========================================
-   
-   ✅ CHANGES MADE:
-   - Added tees input field to HTML form
-   - Added tees column to rounds table
-   - Updated validation to require tees field
-   - Added tees to round object creation
-   - Added tees to data loading and conversion
-   - Added tees sorting functionality
-   - Added tees to form clearing
-   - Updated table column mapping for sort indicators
-   
-   ✅ GOOGLE SHEETS SETUP REQUIRED:
-   Add new column "tees" to your Google Sheet
-   Position: After "course" column (column C)
-   
-   Updated column order should be:
+
+   The Sheet behind SHEETDB_API_URL must have these columns, in this order:
+
    A: id
-   B: date  
+   B: date
    C: course
-   D: tees          ← NEW COLUMN
+   D: tees
    E: courseType
    F: includeInHandicap
    G: holes
@@ -729,5 +704,5 @@ function getCourseTypeDisplay(courseType) {
    K: rating
    L: slope
    M: differential
-   
+
    ======================================== */
