@@ -85,28 +85,28 @@ The app follows official USGA guidelines and provides **two separate handicap ca
      id | date | course | tees | courseType | includeInHandicap | holes | score | par | adjScore | rating | slope | differential
      ```
    - Connect your sheet to SheetDB and get your API URL
-3. **Update the API URL** in `script.js` (line ~32):
+3. **Update the API URL** in `V021/script.js` (line ~19):
    ```javascript
    const SHEETDB_API_URL = 'YOUR_SHEETDB_API_URL_HERE';
    ```
 4. **Enable GitHub Pages**:
    - Go to repository Settings → Pages
    - Select "Deploy from a branch" → main branch
-   - Your app will be live at `https://yourusername.github.io/par-tracker-42`
+   - Your app will be live at `https://yourusername.github.io/GHT/V021/`
 
 ### Option 2: Local Development
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/par-tracker-42.git
-   cd par-tracker-42
+   git clone https://github.com/yourusername/GHT.git
+   cd GHT
    ```
 
 2. Set up SheetDB (same as above)
 
-3. Update the API URL in `script.js`
+3. Update the API URL in `V021/script.js`
 
-4. Open `index.html` in your browser or use a local server:
+4. Open `V021/index.html` in your browser or use a local server from the repository root:
    ```bash
    # Using Python
    python -m http.server 8000
@@ -114,6 +114,7 @@ The app follows official USGA guidelines and provides **two separate handicap ca
    # Using Node.js
    npx serve .
    ```
+   Then visit `http://localhost:8000/V021/`
 
 ### 📋 Important Notes
 
@@ -164,35 +165,38 @@ Your Google Sheet should have these columns in this exact order:
 ## 🔧 Customization
 
 ### Changing Colors
-Edit the CSS variables in `styles.css`:
-```css
-:root {
-  --primary-green: #2c5530;
-  --secondary-green: #4a7c59;
-  --light-green: #e8f5e8;
-}
-```
+The app's colors are set directly in `V021/styles.css`. The main greens are:
+- `#2c5530` (primary green)
+- `#4a7c59` (secondary green)
+- `#e8f5e8` (light green)
+
+Use find and replace to swap them for your own palette. The landing page (`landing/styles.css`) defines its colors as CSS variables at the top of the file.
 
 ### Adding New Statistics
-Add calculations in the `updateStats()` function in `script.js`.
+Add calculations in the `updateStats()` function in `V021/script.js`.
 
 ### Modifying Handicap Calculation
-Edit the `calculateHandicap()` function to implement different handicap systems.
+Edit the `calculateHandicap()` function in `V021/script.js` to implement different handicap systems.
 
 ## 📁 File Structure
 
 ```
-par-tracker-42/
-├── index.html          # Main HTML structure with semantic markup
-├── styles.css          # All styling, responsive design, and compact table layout
-├── script.js           # JavaScript functionality, API calls, and modern error handling
-└── README.md          # This file
+GHT/
+├── V021/               # Current app (v2.1) - this is the version to use and fork
+│   ├── index.html      # Page structure: form, handicap cards, statistics, round table
+│   ├── styles.css      # All styling, responsive design, and compact table layout
+│   └── script.js       # Logic: SheetDB API calls, handicap calculation, sorting, error handling
+├── V02/                # Version 2.0 (archived)
+├── V01/                # Version 1.0, browser storage only (archived)
+├── landing/            # Project landing page
+├── LICENSE
+└── README.md           # This file
 ```
 
 ## 🐛 Troubleshooting
 
 **Data not saving?**
-- Check that your SheetDB API URL is correct in `script.js`
+- Check that your SheetDB API URL is correct in `V021/script.js`
 - Verify your Google Sheet has the correct column headers in the right order
 - Ensure the "tees" column is added as column D
 - Check browser console for error messages
@@ -209,7 +213,7 @@ par-tracker-42/
 
 **App not loading?**
 - Make sure GitHub Pages is enabled in repository settings
-- Check that all files are in the root directory
+- Open the app at the `/V021/` path (for example `https://yourusername.github.io/GHT/V021/`), not just the site root
 - Verify there are no JavaScript errors in browser console
 
 **Made a data entry mistake?**
